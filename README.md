@@ -1,12 +1,12 @@
-##The OP: A Bachelor project
+## The OP: A Bachelor project
 
-###Run
+### Run
 ```
 npm install
 npm start
 ```
 
-###File structure
+### File structure
 ```
 TheOP/
   README.md
