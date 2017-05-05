@@ -1,7 +1,8 @@
-/* 
- *  Copyright � Vik Nikolova 2017
- *  This code has been written by Viktoriya Nikolova as part of her final bachelor project
- *  It is not to be used for commercial use.
+/*
+ * Copyright (C) 2017 Viktoriya Nikolova - All Rights Reserved.
+ * No warranty, explicit or implicit, provided. In no event shall the author
+ * be liable for any claim or damages.
+ * This is proprietary software.
  */
 import Home from './Home/Home.js';
 
