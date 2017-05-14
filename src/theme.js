@@ -4,12 +4,19 @@
 **/
 
 const colors = {
-  font: '#000',
-  alert: 'red'
+  primaryGreen: '#3CE8A3',
+  primaryBlue: '#5A99E9',
+  text: '#231935',
+  background: '#E7F9FC',
+  disabled: '#F4F5F7',
+  white: '#FFFFFF',
+  cream: '#FDFDFC',
+  grey: '#CAC9CC'
 };
 
 const fontFamilies = {
-  main: 'Roboto'
+  main: 'Open Sans Condensed', sans-serif;
+  text:  'Slabo 27px', serif;
 };
 
 const fontSizes = {
@@ -19,6 +26,7 @@ const fontSizes = {
 }
 
 export default {
-  colors: colors,
-  fontSizes: fontSizes
+  colors,
+  fontSizes,
+  fontFamilies
 }
