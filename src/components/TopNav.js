@@ -15,7 +15,7 @@ class TopNav extends Component {
         }
     };
     return (
-      <div className="row" style={styles.wrapper}>
+      <div className="row around" style={styles.wrapper}>
         <div className="col"></div>
         <div className="col"></div>
       </div>

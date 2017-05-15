@@ -23,7 +23,7 @@ class Home extends Component {
       }
     }
     return (
-      <div>
+      <div className="col">
 	       <TopNav />
            <div>
           { /** Intro section begin

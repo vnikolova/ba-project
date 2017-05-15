@@ -52,7 +52,7 @@ class Button extends Component {
            <div
               className="fb-login-button"
               data-max-rows="1"
-              data-size="medium"
+              data-size="large"
               data-button-type="login_with"
               data-use-continue-as="false"
               data-show-faces="false"
