@@ -5,10 +5,16 @@
  */
 import React, { Component } from 'react';
 import {TopNav, SearchBar} from '../../components';
-import {IntroSection} from './components';
+import colors from '../../theme.js';
 
 class Home extends Component {
   render() {
+    const style = {
+      intro: {
+        height: '500px',
+        backgroundColor: colors.background
+      }
+    }
     return (
       <div>
 	       <TopNav />
@@ -16,6 +22,8 @@ class Home extends Component {
           { /** Intro section begin
            * add background video
            **/}
+           <div style={style.intro}>
+           </div>
            <SearchBar />
            </div>
       </div>
