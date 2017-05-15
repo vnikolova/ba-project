@@ -15,8 +15,8 @@ const colors = {
 };
 
 const fontFamilies = {
-  main: 'Open Sans Condensed', sans-serif;
-  text:  'Slabo 27px', serif;
+  main: 'Open Sans Condensed',
+  text:  'Slabo 27px'
 };
 
 const fontSizes = {
@@ -24,9 +24,16 @@ const fontSizes = {
   regular: '18px',
   heading1: '22px'
 }
-
+const padding = {
+  0: '0px',
+  1: '4px',
+  2: '8px',
+  3: '12px',
+  4: '16px'
+}
 export default {
   colors,
   fontSizes,
-  fontFamilies
+  fontFamilies,
+  padding
 }

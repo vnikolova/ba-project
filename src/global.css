@@ -5,8 +5,9 @@ body {
 }
 .row {
   display: flex;
-  border: 1px solid black;
   flex-direction: row;
+}
+.around {
   justify-content: space-around;
 }
 .col {
