@@ -5,19 +5,22 @@
  * This is proprietary software.
  */
 import React, { Component } from 'react';
-import colors from '../theme.js';
+import theme from '../theme.js';
 
 class TopNav extends Component {
+
   render() {
     const styles = {
       wrapper: {
-        backgroundColor: colors.background
+        backgroundColor: theme.colors.cream,
+        padding: theme.padding[5],
+        borderBottom: theme.border
         }
     };
     return (
       <div className="row around" style={styles.wrapper}>
         <div className="col"></div>
-        <div className="col"></div>
+        <div className="col">{name}</div>
       </div>
       );
   }

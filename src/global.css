@@ -1,7 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 .row {
   display: flex;
@@ -13,6 +12,22 @@ body {
 .col {
   flex-direction: column;
   display: flex;
-  border: 2px solid blue;
   margin: 2px;
+}
+
+.middle {
+  text-align: middle;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-family: 'Quicksand',sans-serif;
+}
+.center {
+  align-self: center;
+  text-align: center;
 }
