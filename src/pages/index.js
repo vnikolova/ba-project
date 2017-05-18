@@ -5,8 +5,9 @@
  * This is proprietary software.
  */
 import Home from './Home/Home.js';
+import Dashboard from './Dashboard/Dashboard.js';
 
 export {
-Home
+  Dashboard,
+  Home
   }
-
