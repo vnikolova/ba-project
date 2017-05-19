@@ -31,11 +31,16 @@ class Home extends Component {
       intro: {
         height: '55vh',
         backgroundColor: theme.colors.background
+      },
+      cats: {
+        height: '45vh',
+        backgroundColor: theme.colors.cream
       }
     }
     return (
       <div className="col">
 	       <TopNav />
+        { /* section one intro */}
            <div className="row around middle" style={style.intro}>
               <div className="col center">
                 <h1>Meet your new team. Build your ideas.</h1>
@@ -45,9 +50,19 @@ class Home extends Component {
               <div className="col center">
               </div>
            </div>
-
-           <Popup open={this.state.loginModalIsOpen}>
-            <LoginForm />
+           { /* section two - categories */}
+           <div className="row around middle" style={style.cats}>
+            <div className="col">
+            <h2>Discover our categories</h2>
+            <div className="row">
+                <div className="col category">
+                  <h3>Science</h3>
+                  <p>A space for any proejcts related to science and research</p>
+                </div>
+            </div>
+          </div>
+           </div>
+           <Popup open={this.state.loginModalIsOpen} title="Sign In">
            </Popup>
       </div>
       );

@@ -23,12 +23,20 @@ input {
   width: 100%;
   box-sizing: border-box;
 }
-
+input[type=button]:hover, button {
+  background: white;
+}
 h1 {
+  font-size: 34px;
+}
+h2 {
+  font-size: 28px;
+}
+h1,h2, h3 {
   font-family: 'Lato',sans-serif;
   font-weight:300;
 }
-p {
+p, input {
   font-family: 'Slabo 27px';
   font-size: 20px;
 }
