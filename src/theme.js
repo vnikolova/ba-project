@@ -15,7 +15,7 @@ const colors = {
 };
 
 const fontFamilies = {
-  main: 'Quicksand',
+  main: 'Lato',
   text:  'Slabo27px'
 };
 const border = '1px solid lightgrey';

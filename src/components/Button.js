@@ -6,21 +6,26 @@
  */
 import React, { Component } from 'react';
 import theme from '../theme.js';
+import PropTypes from 'prop-types';
+import './components.css';
 
 class Button extends Component {
 
   render() {
-    const styles = {
-      padding: theme.padding[4],
-      border: 'none',
-      cursor: 'pointer'
-    };
+
+    const className = this.props.main ? 'button-main' : '';
+
     return (
       <div>
-        <input style={styles} type="button" value={this.props.text} />
+        <input className={className} type="button" value={this.props.text} />
       </div>
       );
   }
 };
+
+Button.propTypes = {
+  text: PropTypes.string,
+  main: PropTypes.bool
+}
 
 export default Button;

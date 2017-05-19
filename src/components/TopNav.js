@@ -5,6 +5,7 @@
  * This is proprietary software.
  */
 import React, { Component } from 'react';
+import {Link} from './';
 import theme from '../theme.js';
 
 class TopNav extends Component {
@@ -19,8 +20,12 @@ class TopNav extends Component {
     };
     return (
       <div className="row around" style={styles.wrapper}>
-        <div className="col"></div>
-        <div className="col">{name}</div>
+        <div className="col">
+          [LOGO]
+        </div>
+        <div className="col">
+          <Link text="Login" href="/login" />
+        </div>
       </div>
       );
   }
