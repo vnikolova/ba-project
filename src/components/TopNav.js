@@ -5,7 +5,8 @@
  * This is proprietary software.
  */
 import React, { Component } from 'react';
-import {Link} from './';
+import {Button} from './';
+import {RaiseLogo} from '../icons';
 import theme from '../theme.js';
 
 class TopNav extends Component {
@@ -16,15 +17,18 @@ class TopNav extends Component {
         backgroundColor: theme.colors.cream,
         padding: theme.padding[5],
         borderBottom: theme.border
-        }
+      },
+      span: {
+        marginLeft: '16px'
+      }
     };
     return (
       <div className="row around" style={styles.wrapper}>
-        <div className="col">
-          [LOGO]
+        <div className="col inline logo-text">
+          <RaiseLogo height="16px"/><span style={styles.span}>raise.</span>
         </div>
-        <div className="col">
-          <Link text="Login" href="/login" />
+        <div className="col center">
+          <Button text="Log In/ Sign Up" onClick={this.props.onLoginClick} />
         </div>
       </div>
       );

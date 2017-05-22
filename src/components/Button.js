@@ -7,13 +7,12 @@
 import React, { Component } from 'react';
 import theme from '../theme.js';
 import PropTypes from 'prop-types';
-import './components.css';
 
 class Button extends Component {
 
   render() {
 
-    const className = this.props.main ? 'button-main' : '';
+    const className = this.props.main ? 'button-main' : 'button-no-style';
 
     return (
       <div>

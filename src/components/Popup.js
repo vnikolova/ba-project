@@ -20,28 +20,32 @@ class Popup extends Component {
         backgroundColor: 'rgba(0,0,0,0.3)',
       },
       dialogStyles: {
-        width: '50%',
-        height: '400px',
+        width: this.props.narrow ? '25%' : '30%',
+        height: 'auto',
         position: 'fixed',
-        top: '50%',
-        left: '50%',
+        top: '35%',
+        left: '60%',
         marginTop: '-200px',
-        marginLeft: '-25%',
+        marginLeft:  this.props.narrow ? '-25%' : '-30%',
         backgroundColor: '#fff',
         borderRadius: '2px',
         zIndex: '100',
-        padding: '15px',
+        padding: '0 15px',
         boxShadow: '0px 0px 4px rgba(0,0,0,.14),0px 4px 8px rgba(0,0,0,.28)',
       },
+      header: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      },
       title: {
-        marginTop: '0px',
+        width: '100%',
+        marginLeft: '50%'
       },
       closeButtonStyle: {
         cursor: 'pointer',
-        position: 'absolute',
         fontSize: '1.8em',
-        right: '10px',
-        top: '0px',
       },
     };
 
@@ -52,13 +56,15 @@ class Popup extends Component {
           style={style.overlayStyles}
         />
           <div  style={style.dialogStyles}>
-            <a role="button"
-              onClick={() => this.props.onClose()}
-              style={style.closeButtonStyle}
-            >
+            <div style={style.header}>
+              <h2 style={style.titleStyle}>{this.props.title}</h2>
+              <a role="button"
+                onClick={() => this.props.onClose()}
+                style={style.closeButtonStyle}
+              >
               &times;
              </a>
-            <h2 style={style.titleStyle}>{this.props.title}</h2>
+            </div>
             {this.props.children}
           </div>
       </div>

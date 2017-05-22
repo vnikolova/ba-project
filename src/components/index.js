@@ -7,7 +7,7 @@ import Input from './Input.js';
 import Link from './Link.js';
 import LoginForm from './LoginForm.js';
 import Popup from './Popup.js';
-
+import Text from './Text.js';
 export {
   App,
   Button,
@@ -17,5 +17,6 @@ export {
   LoginForm,
   Popup,
   SearchBar,
+  Text,
   TopNav
 }

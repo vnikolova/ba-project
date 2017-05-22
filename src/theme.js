@@ -8,7 +8,7 @@ const colors = {
   primaryBlue: '#5A99E9',
   text: '#231935',
   background: '#E7F9FC',
-  disabled: '#F4F5F7',
+  disabled: '#677077',
   white: '#FFFFFF',
   cream: '#FDFDFC',
   grey: '#CAC9CC'

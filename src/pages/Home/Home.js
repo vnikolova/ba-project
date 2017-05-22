@@ -27,17 +27,17 @@ class Home extends Component {
   render() {
     const style = {
       intro: {
-        height: '55vh',
+        height: '65vh',
         backgroundColor: theme.colors.background
       },
       cats: {
-        height: '45vh',
+        height: '35vh',
         backgroundColor: theme.colors.cream
       }
     }
     return (
       <div className="col">
-	       <TopNav />
+	       <TopNav onLoginClick={() => this.handleLoginModal(true)} />
         { /* section one intro */}
            <div className="row around middle" style={style.intro}>
               <div className="col center">
@@ -49,34 +49,28 @@ class Home extends Component {
               </div>
            </div>
            { /* section two - categories */}
-           <div className="row around middle" style={style.cats}>
-            <div className="col">
-            <h2>Discover our categories</h2>
-            <div className="row">
-                <div className="col category">
+            <h2 className="center">Discover our categories</h2>
+            <div className="row center" style={style.cats}>
+                <div className="col category bg-science">
                   <h3>Science & Reserach</h3>
-                  <ScienceIcon />
                 </div>
-                <div className="col category">
+                <div className="col category bg-tech">
                   <h3>Technology</h3>
                 </div>
-                <div className="col category">
+                <div className="col category bg-film">
                   <h3>Film & Photography</h3>
-                  <CameraIcon />
                 </div>
-                <div className="col category">
+                <div className="col category bg-music">
                   <h3>Music</h3>
                 </div>
-                <div className="col category">
+                <div className="col category bg-sports">
                   <h3>Sports</h3>
                 </div>
-                <div className="col category">
+                <div className="col category bg-society">
                   <h3>Community</h3>
                 </div>
-            </div>
           </div>
-           </div>
-           <Popup open={this.state.loginModalIsOpen} onClose={() => this.handleLoginModal(false)} title="Sign In">
+           <Popup open={this.state.loginModalIsOpen} onClose={() => this.handleLoginModal(false)} title="Sign In" narrow>
             <LoginForm />
            </Popup>
       </div>

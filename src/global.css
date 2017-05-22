@@ -4,6 +4,7 @@ body {
 }
 .row {
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: row;
 }
 .around {
@@ -12,7 +13,6 @@ body {
 .col {
   flex-direction: column;
   display: flex;
-  margin: 2px;
 }
 
 .middle {
@@ -22,6 +22,9 @@ body {
 input {
   width: 100%;
   box-sizing: border-box;
+}
+input[type=button] {
+  cursor: pointer;
 }
 input[type=button]:hover, button {
   background: white;
@@ -40,7 +43,76 @@ p, input {
   font-family: 'Slabo 27px';
   font-size: 20px;
 }
+.button-main {
+  border: 2px solid #5A99E9;
+  border-radius: 50px;
+  background-color: transparent;
+  padding: 16px;
+  margin: 0 0 16px 0;
+}
+.button-no-style {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
 .center {
   align-self: center;
   text-align: center;
+}
+/* logo */
+.logo-text {
+  font-size: 2.2em;
+  font-weight: 400;
+  font-family: 'Pacifico'
+}
+.inline {
+  display: inline;
+}
+/* home categories*/
+.category {
+  width: 250px;
+  margin: 8px;
+  height: 220px;
+  background-size: cover;
+}
+.category h3 {
+  font-size: 3em;
+  text-align: left;
+  word-wrap: break-word;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 800;
+}
+.category:hover {
+  filter: grayscale();
+  box-shadow: inset 0 0 0 1000px rgba(255,120,255,.1);
+  cursor: pointer;
+}
+
+/* background images */
+.bg-science {
+  background-image: url("images/science-bg.jpg");
+  box-shadow: inset 0 0 0 1000px rgba(142, 68, 173,.5);
+}
+.bg-tech {
+  background-image: url("images/tech-bg.jpg");
+  box-shadow: inset 0 0 0 1000px rgba(41, 128, 185,.5);
+}
+.bg-film {
+  background-image: url("images/film-bg.jpeg");
+  box-shadow: inset 0 0 0 1000px rgba(22, 160, 133,.5);
+}
+.bg-society {
+  background-image: url("images/society-bg.jpeg");
+  box-shadow: inset 0 0 0 1000px rgba(192, 57, 43,.5);
+}
+.bg-music {
+  background-image: url("images/music-bg.jpeg");
+  box-shadow: inset 0 0 0 1000px rgba(211, 84, 0,.5);
+}
+.bg-sports{
+  background-image: url("images/sports-bg.jpg");
+  box-shadow: inset 0 0 0 1000px rgba(39, 174, 96,.5);
 }
