@@ -7,9 +7,9 @@
 import React, { Component } from 'react';
 import {TopNav, Button,Popup, LoginForm} from '../../components';
 import theme from '../../theme.js';
+import {CameraIcon, ScienceIcon} from  '../../icons';
 
 class Home extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -17,13 +17,11 @@ class Home extends Component {
     };
 
     // This binding is necessary to make `this` work in the callback
-    this.onLoginButtonClick = this.onLoginButtonClick.bind(this);
   }
-
-  onLoginButtonClick() {
-    this.setState(prevState=> ({
-      loginModalIsOpen: true
-    }));
+  handleLoginModal(state) {
+    this.setState({
+      loginModalIsOpen: state
+    })
   }
 
   render() {
@@ -45,7 +43,7 @@ class Home extends Component {
               <div className="col center">
                 <h1>Meet your new team. Build your ideas.</h1>
                 <p>No more time-wasting. No BS. </p>
-                <Button main text="Sign me up!" onMouseDown={this.onLoginButtonClick}/>
+                <Button main text="Sign me up!" onClick={() => this.handleLoginModal(true)}/>
               </div>
               <div className="col center">
               </div>
@@ -56,13 +54,30 @@ class Home extends Component {
             <h2>Discover our categories</h2>
             <div className="row">
                 <div className="col category">
-                  <h3>Science</h3>
-                  <p>A space for any proejcts related to science and research</p>
+                  <h3>Science & Reserach</h3>
+                  <ScienceIcon />
+                </div>
+                <div className="col category">
+                  <h3>Technology</h3>
+                </div>
+                <div className="col category">
+                  <h3>Film & Photography</h3>
+                  <CameraIcon />
+                </div>
+                <div className="col category">
+                  <h3>Music</h3>
+                </div>
+                <div className="col category">
+                  <h3>Sports</h3>
+                </div>
+                <div className="col category">
+                  <h3>Community</h3>
                 </div>
             </div>
           </div>
            </div>
-           <Popup open={this.state.loginModalIsOpen} title="Sign In">
+           <Popup open={this.state.loginModalIsOpen} onClose={() => this.handleLoginModal(false)} title="Sign In">
+            <LoginForm />
            </Popup>
       </div>
       );

@@ -17,7 +17,7 @@ class Button extends Component {
 
     return (
       <div>
-        <input className={className} type="button" value={this.props.text} />
+        <input className={className} onClick={this.props.onClick} type="button" value={this.props.text} />
       </div>
       );
   }

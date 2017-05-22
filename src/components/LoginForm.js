@@ -20,6 +20,7 @@ class LoginForm extends Component {
     };
     return (
     <div>
+      <p>Sign in to start joining projects and supporting causes that matter most to you.</p>
       <div id="fb-root"></div>
       <div id="facebook-login">
         <FacebookButton fb={FB} />
@@ -29,6 +30,9 @@ class LoginForm extends Component {
         <Input text="Enter your e-mail" />
         <Button text="Continue" icon="" />
       </div>
+      <p>To use Flow you must have cookies enabled. If you sign up with Facebook,
+      we’ll start you off with a network by automatically importing any friends already on Facebook.
+      Also, we’ll never post to Facebook without your permission.</p>
     </div>
       );
   }
