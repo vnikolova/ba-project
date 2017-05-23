@@ -38,7 +38,9 @@ class Home extends Component {
     return (
       <div className="col">
 	       <TopNav onLoginClick={() => this.handleLoginModal(true)} />
+
         { /* section one intro */}
+
            <div className="row around middle" style={style.intro}>
               <div className="col center">
                 <h1>Meet your new team. Build your ideas.</h1>
@@ -48,7 +50,9 @@ class Home extends Component {
               <div className="col center">
               </div>
            </div>
+
            { /* section two - categories */}
+           
             <h2 className="center">Discover our categories</h2>
             <div className="row center" style={style.cats}>
                 <div className="col category bg-science">

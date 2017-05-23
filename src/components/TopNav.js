@@ -19,13 +19,13 @@ class TopNav extends Component {
         borderBottom: theme.border
       },
       span: {
-        marginLeft: '16px'
+        marginLeft: '8px'
       }
     };
     return (
       <div className="row around" style={styles.wrapper}>
         <div className="col inline logo-text">
-          <RaiseLogo height="16px"/><span style={styles.span}>raise.</span>
+          <RaiseLogo height="30px"/><span style={styles.span}>raise.</span>
         </div>
         <div className="col center">
           <Button text="Log In/ Sign Up" onClick={this.props.onLoginClick} />
