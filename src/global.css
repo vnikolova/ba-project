@@ -21,6 +21,7 @@ body {
 
 input {
   width: 100%;
+  border: none;
   box-sizing: border-box;
 }
 input[type=button] {
@@ -115,4 +116,7 @@ p, input {
 .bg-sports{
   background-image: url("images/sports-bg.jpg");
   box-shadow: inset 0 0 0 1000px rgba(39, 174, 96,.5);
+}
+.has-error {
+  border: 1px solid red;
 }

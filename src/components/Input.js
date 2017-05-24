@@ -12,7 +12,6 @@ class Input extends Component {
   render() {
     const styles = {
       padding: theme.padding[4],
-      border: 'none',
     };
     
     const {text,...props} = {...this.props};

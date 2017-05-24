@@ -11,12 +11,12 @@ import PropTypes from 'prop-types';
 class Button extends Component {
 
   render() {
-
-    const className = this.props.main ? 'button-main' : 'button-no-style';
+    const { main,text, ...props} = this.props;
+    const className = main ? 'button-main' : 'button-no-style';
 
     return (
       <div>
-        <input className={className} onClick={this.props.onClick} type="button" value={this.props.text} />
+        <input {...props} className={className} type="button" value={text} />
       </div>
       );
   }
