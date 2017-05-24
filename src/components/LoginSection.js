@@ -10,6 +10,8 @@ import React, { Component } from 'react';
 import theme from '../theme.js';
 import {FacebookButton, Button,Text, LoginForm, SignUpForm } from './';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { userSignUpRequest } from '../actions/signupActions';
 
 class LoginSection extends Component {
   constructor(props){
@@ -33,8 +35,8 @@ class LoginSection extends Component {
       }
     };
 
-
-    const formSection = this.state.loginActive ? <LoginForm /> : <SignUpForm />;
+    const {userSignUpRequest} = this.props;
+    const formSection = this.state.loginActive ? <LoginForm /> : <SignUpForm userSignUpRequest={userSignUpRequest}/>;
     const switchText = this.state.loginActive ? "Not a user yet? Click to register." : "Already a user? Click to log in with email.";
 
     return (
@@ -58,8 +60,7 @@ class LoginSection extends Component {
 
 LoginSection.PropTypes = {
   loginActive: PropTypes.bool,
-  onLogin: PropTypes.func,
-  onSignUp: PropTypes.func
+  userSignUpRequest: PropTypes.func
 }
 
-export default LoginSection;
+export default connect(null, {userSignUpRequest})(LoginSection);

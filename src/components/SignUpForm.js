@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Input, Button } from './';
+import PropTypes from 'prop-types';
 
 class SignUpForm extends Component {
 
@@ -25,7 +26,7 @@ class SignUpForm extends Component {
 
   onSubmit(e){
     e.preventDefault();
-    console.log(this.state);
+    this.props.userSignUpRequest(this.state);
   }
 
   render(){
@@ -70,4 +71,9 @@ class SignUpForm extends Component {
   }
 }
 
-  export default SignUpForm;
+
+SignUpForm.propTypes = {
+  userSignUpRequest: PropTypes.func
+};
+
+export default SignUpForm;
