@@ -7,9 +7,17 @@ class LoginForm extends Component {
     super(props);
 
     this.state = {
+    	email: '',
+    	password: ''
     };
-  }
 
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value, 
+    });
+  }
   render(){
 
   	const style = {
@@ -19,8 +27,18 @@ class LoginForm extends Component {
 
   	return(
   		<div className="col center" style={style}>
-            <Input text="E-mail" />
-            <Input text="Password" />
+            <Input text="E-mail"
+                  type="email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+             />
+            <Input text="Password"
+                  type="password"
+                  name="password"
+                  value={this.state.Password}
+                  onChange={this.onChange}
+             />
             <Button main text="Log in" />
          </div>
   		);

@@ -9,16 +9,23 @@ class SignUpForm extends Component {
     this.state = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      passwordConfirmation: ''
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value, 
     });
+  }
+
+  onSubmit(e){
+    e.preventDefault();
+    console.log(this.state);
   }
 
   render(){
@@ -36,10 +43,28 @@ class SignUpForm extends Component {
                   value={this.state.name}
                   onChange={this.onChange}
                   />
-                <Input text="Enter your e-mail" />
-                <Input text="Password" />
-                <Input text="Repeat password" />
-                <Button main text="Sign up" onClick={this.props.onSignUp} />
+                <Input
+                  text="Enter your e-mail"
+                  type="email"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                />
+                <Input
+                  text="Password"
+                  type="password"
+                  name="password"
+                  value={this.state.Password}
+                  onChange={this.onChange}
+                  />
+                <Input
+                  text="Repeat password"
+                  type="password"
+                  name="passwordConfirmation"
+                  value={this.state.passwordConfirmation}
+                  onChange={this.onChange}
+                  />
+                <Button main text="Sign up" onClick={this.onSubmit} />
               </div>
   		);
   }
