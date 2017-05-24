@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import {TopNav, Button,Popup, LoginSection} from '../../components';
 import theme from '../../theme.js';
 import {CameraIcon, ScienceIcon} from  '../../icons';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
   constructor(props) {
@@ -82,5 +83,6 @@ class Home extends Component {
   }
 
 };
+
 
 export default Home;

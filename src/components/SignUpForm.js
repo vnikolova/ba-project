@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+
 import {Input, Button, Text } from './';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import theme from '../theme.js';
+import validateInput from '../../server/shared/validations/signup';
 
 class SignUpForm extends Component {
 
@@ -15,11 +18,22 @@ class SignUpForm extends Component {
       password: '',
       passwordConfirmation: '',
       errors: {},
-      isLoading: false
+      isLoading: false,
+      redirect: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+
+    if(!isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
   }
 
   onChange(e) {
@@ -29,24 +43,31 @@ class SignUpForm extends Component {
   }
 
   onSubmit(e){
-    this.setState({ errors: {}, isLoading: true });
     e.preventDefault();
-    this.props.userSignUpRequest(this.state).then(
-      () => {},
-      ({ data }) => this.setState({errors: data, isLoading: false })
-      );
+
+    if(this.isValid()){
+          this.setState({ errors: {}, isLoading: true });
+          this.props.userSignUpRequest(this.state).then(
+            () => {
+                  this.setState({ redirect: true });
+            },
+            ({ data }) => this.setState({errors: data, isLoading: false })
+            );
+  };
   }
 
   render(){
-
     const style = {
         width: '80%',
         margin: '0 auto',
       };
 
-    const { errors } = this.state;
+    const { errors, redirect } = this.state;
     const { disabled } = theme.colors;
-    
+
+     if (redirect) {
+       return <Redirect to='/'/>;
+     }
   	return(
               <div className="col center" style={style}>
                 <Input 
