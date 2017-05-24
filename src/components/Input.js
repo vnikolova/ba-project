@@ -14,9 +14,10 @@ class Input extends Component {
       padding: theme.padding[4],
       border: 'none',
     };
+    const {text,...props} = {...this.props};
     return (
       <div>
-        <input style={styles} type="text" placeholder={this.props.text} />
+        <input {...props} style={styles} placeholder={text} />
       </div>
       );
   }

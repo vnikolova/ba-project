@@ -32,6 +32,7 @@ class Button extends Component {
 
      if( response.status === "connected" ) {
         this.FB.api('/me', function(response) {
+          //set user session
            var message = "Welcome " + response.name;
            this.setState({
               message: message

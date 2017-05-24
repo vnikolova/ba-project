@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import {TopNav, Button,Popup, LoginForm} from '../../components';
+import {TopNav, Button,Popup, LoginSection} from '../../components';
 import theme from '../../theme.js';
 import {CameraIcon, ScienceIcon} from  '../../icons';
 
@@ -13,7 +13,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginModalIsOpen: false
+      loginModalIsOpen: true
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -75,7 +75,7 @@ class Home extends Component {
                 </div>
           </div>
            <Popup open={this.state.loginModalIsOpen} onClose={() => this.handleLoginModal(false)} title="Sign In" narrow>
-            <LoginForm />
+            <LoginSection />
            </Popup>
       </div>
       );

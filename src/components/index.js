@@ -5,7 +5,9 @@ import Button from './Button.js';
 import FacebookButton from './FacebookButton.js';
 import Input from './Input.js';
 import Link from './Link.js';
+import LoginSection from './LoginSection.js';
 import LoginForm from './LoginForm.js';
+import SignUpForm from './SignUpForm.js';
 import Popup from './Popup.js';
 import Text from './Text.js';
 export {
@@ -15,8 +17,10 @@ export {
   Input,
   Link,
   LoginForm,
+  LoginSection,
   Popup,
   SearchBar,
+  SignUpForm,
   Text,
   TopNav
 }
