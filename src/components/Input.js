@@ -14,6 +14,7 @@ class Input extends Component {
       padding: theme.padding[4],
       border: 'none',
     };
+    
     const {text,...props} = {...this.props};
     return (
       <div>
