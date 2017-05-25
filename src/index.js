@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import Home from './pages/Home/Home.js';
-import {LoginForm} from './components';
+import {Home, Dashboard} from './pages';
+import {LoginForm, App} from './components';
 import './global.css';
 
 import thunk from 'redux-thunk';
@@ -15,7 +15,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-  	<Home />
+  	<App />
   </Provider>,
   document.getElementById('root')
 );
