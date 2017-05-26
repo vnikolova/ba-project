@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {Home, Dashboard} from './pages';
-import {LoginForm, App} from './components';
+import {App} from './components';
 import './global.css';
 
 import thunk from 'redux-thunk';

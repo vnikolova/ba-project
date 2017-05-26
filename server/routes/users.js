@@ -13,4 +13,24 @@ router.post('/', (req, res) => {
 	}
 });
 
+//get user from the db
+router.get('/', function(req, res){
+	res.send({ type: 'GET' });
+});
+
+//add user to the db
+router.post('/', function(req, res){
+	res.send({ type: 'POST' });
+});
+
+//update user in the db
+router.put('/:id', function(req, res){
+	res.send({ type: 'PUT' });
+});
+
+//delete user from the db
+router.delete('/:id', function(req, res){
+	res.send({ type: 'DELETE' });
+});
+
 module.exports = router;

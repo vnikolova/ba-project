@@ -5,7 +5,6 @@
  * This is proprietary software.
  */
 import React, { Component } from 'react';
-import theme from '../theme.js';
 import PropTypes from 'prop-types';
 
 class Button extends Component {
