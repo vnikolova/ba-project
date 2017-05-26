@@ -21,6 +21,11 @@ app.use(bodyParser.json());
 //add routes handlers
 app.use('/api/users',users);
 
+//error handling middleware
+app.use(function(err, req, res, next){
+  res.status(422).send({ error: err.message });
+});
+
 //listen for requests
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
