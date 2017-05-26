@@ -1,9 +1,10 @@
 
 const express = require('express');
 const users = require('./server/routes/users');
+const index = require('./server/routes/index');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const session = require('express-session');
 //set up express app
 const app = express();
 
@@ -17,9 +18,21 @@ mongoose.Promise = global.Promise;
 //look at the body of the request, parse and push
 //needs to be on top
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
+
+//add session middleware
+app.use(session({
+  secret: "sfghsrfjusgyjugd",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 360 * 160 * 1000
+  }
+}));
 
 //add routes handlers
 app.use('/api/users',users);
+app.use(index);
 
 //error handling middleware
 app.use(function(err, req, res, next){

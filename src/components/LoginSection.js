@@ -35,7 +35,6 @@ class LoginSection extends Component {
       }
     };
 
-    const {userSignUpRequest} = this.props;
     const formSection = this.state.loginActive ? <LoginForm /> : <SignUpForm userSignUpRequest={userSignUpRequest}/>;
     const switchText = this.state.loginActive ? "Not a user yet? Click to register." : "Already a user? Click to log in with email.";
 
@@ -59,8 +58,7 @@ class LoginSection extends Component {
 
 
 LoginSection.PropTypes = {
-  loginActive: PropTypes.bool,
-  userSignUpRequest: PropTypes.func
+  loginActive: PropTypes.bool
 }
 
 export default connect(null, {userSignUpRequest})(LoginSection);

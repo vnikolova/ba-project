@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 import {Input, Button, Text } from './';
 import PropTypes from 'prop-types';
@@ -38,7 +39,7 @@ class SignUpForm extends Component {
 
   onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value, 
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -47,12 +48,21 @@ class SignUpForm extends Component {
 
     if(this.isValid()){
           this.setState({ errors: {}, isLoading: true });
-          this.props.userSignUpRequest(this.state).then(
-            () => {
-                  this.setState({ redirect: true });
-            },
-            ({ data }) => this.setState({errors: data, isLoading: false })
-            );
+          // this.props.userSignUpRequest(this.state).then(
+          //   () => {
+          //         this.setState({ redirect: true });
+          //   },
+          //   ({ data }) => this.setState({errors: data, isLoading: false })
+          //   );
+          axios.post('/api/users/signup',this.state).then(function(obj){
+            return obj.data;
+          }).then(json => {
+            this.setState({
+              redirect: true,
+              isLoading: false
+            });
+            console.log(json);
+          });
   };
   }
 
@@ -66,11 +76,11 @@ class SignUpForm extends Component {
     const { disabled } = theme.colors;
 
      if (redirect) {
-       return <Redirect to='/'/>;
+       return <Redirect to='/dashboard'/>;
      }
   	return(
               <div className="col center" style={style}>
-                <Input 
+                <Input
                   type="text"
                   text="Name"
                   className={classnames("",{'has-error': errors.name})}

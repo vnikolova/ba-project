@@ -12,7 +12,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginModalIsOpen: true
+      loginModalIsOpen: false
     };
 
     // This binding is necessary to make `this` work in the callback
