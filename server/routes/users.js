@@ -30,12 +30,20 @@ router.post('/', function(req, res, next){
 
 //update user in the db
 router.put('/:id', function(req, res, next){
-	res.send({ type: 'PUT' });
+	User.findByIdAndUpdate({ _id: req.params.id },req.body).then(function(){
+		//find the updated record
+		User.findOne({ _id: req.params.id}).then(function(user){
+			res.send(user);
+		});
+		
+	});
 });
 
 //delete user from the db
 router.delete('/:id', function(req, res, next){
-	res.send({ type: 'DELETE' });
+	User.findByIdAndRemove({ _id: req.params.id }).then(function(user){
+		res.send(user);
+	});
 });
 
 module.exports = router;
