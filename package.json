@@ -13,6 +13,7 @@
     "express-session": "^1.15.3",
     "foreman": "^2.0.0",
     "marked": "^0.3.6",
+    "material-ui": "^0.18.1",
     "mongoose": "^4.9.9",
     "normalize.css": "^7.0.0",
     "react": "^15.5.4",
