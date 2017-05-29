@@ -73,13 +73,13 @@ p, input {
 }
 /* home categories*/
 .category {
-  width: 250px;
+  width: 180px;
   margin: 8px;
-  height: 220px;
+  height: 180px;
   background-size: cover;
 }
 .category h3 {
-  font-size: 3em;
+  font-size: 2.2em;
   text-align: left;
   word-wrap: break-word;
   text-transform: uppercase;
@@ -119,4 +119,9 @@ p, input {
 }
 .has-error {
   border: 1px solid red;
+}
+
+.router-link {
+  text-decoration: none;
+  color: none;
 }

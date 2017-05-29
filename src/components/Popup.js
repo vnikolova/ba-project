@@ -20,7 +20,7 @@ class Popup extends Component {
         backgroundColor: 'rgba(0,0,0,0.3)',
       },
       dialogStyles: {
-        width: this.props.narrow ? '30%' : '35%',
+        width: this.props.narrow ? '40%' : '45%',
         height: 'auto',
         position: 'fixed',
         top: '35%',

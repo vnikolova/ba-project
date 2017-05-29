@@ -10,18 +10,55 @@ import {RaiseLogo} from '../icons';
 import theme from '../theme.js';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {IconMenu, MenuItem, IconButton} from 'material-ui';
+import PersonIcon from 'material-ui/svg-icons/social/person';
 
 class TopNav extends Component {
 
+constructor(props){
+  super(props);
+
+  this.state = {
+
+  };
+
+  this.onLogoutClick = this.onLogoutClick.bind(this);
+}
+
+onLogoutClick() {
+
+};
   render() {
     const { userIsLoggedIn }  = this.props;
+    const style ={
+      userMenuIcons: {
+        display: 'inline'
+      },
+      wrapper: {
+        alignItems: 'center'
+      }
+    };
 
     const userLinks = (
-      <Button text="Log out" onClick={this.props.onLogoutClick} />
+      <div className="row center" style={style.wrapper}>
+      {this.props.userName}
+      <IconMenu
+        iconButtonElement={<IconButton style={style.userMenuIcons}><PersonIcon /></IconButton>}
+        anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+      >
+        <Link to="dashboard" className="router-link"><MenuItem primaryText="Dashboard" onClick={this.onDashboardMenuClick} /></Link>
+        <Link to="settings" className="router-link"><MenuItem primaryText="Settings" onClick={this.onSettingsMenuClick} /></Link>
+        <MenuItem primaryText="Log out" onTouchTap={this.props.onLogoutClick} />
+      </IconMenu>
+      </div>
     );
 
     const guestLinks = (
+      <div>
       <Button text="Log In/ Sign Up" onClick={this.props.onLoginClick} />
+
+      </div>
     );
 
     const styles = {
@@ -35,7 +72,7 @@ class TopNav extends Component {
       }
     };
     const logoLinkPath = userIsLoggedIn ? '/dashboard' : '/';
-    
+
     return (
       <div className="row around" style={styles.wrapper}>
         <div className="col inline logo-text">
