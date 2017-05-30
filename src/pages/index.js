@@ -6,8 +6,10 @@
  */
 import Home from './Home/Home.js';
 import Dashboard from './Dashboard/Dashboard.js';
+import SignUp from './SignUp/SignUp.js';
 
 export {
   Dashboard,
-  Home
+  Home,
+  SignUp
   }

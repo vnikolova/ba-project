@@ -4,11 +4,10 @@
  * be liable for any claim or damages.
  * This is proprietary software.
  */
- /*global FB*/
 
 import React, { Component } from 'react';
 import theme from '../theme.js';
-import {FacebookButton, Button,Text, LoginForm, SignUpForm } from './';
+import { Button,Text, LoginForm, SignUpForm } from './';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userSignUpRequest } from '../actions/signupActions';
@@ -36,16 +35,11 @@ class LoginSection extends Component {
     };
 
     const formSection = this.state.loginActive ? <LoginForm /> : <SignUpForm userSignUpRequest={userSignUpRequest}/>;
-    const switchText = this.state.loginActive ? "Not a user yet? Click to register." : "Already a user? Click to log in with email.";
+    const switchText = this.state.loginActive ? "Not a user yet? Sign Up with email." : "Already a user? Click to log in.";
 
     return (
     <div style={style.wrapper}>
       <Text>Sign in to start joining projects and supporting causes that matter most to you.</Text>
-      <div id="fb-root"></div>
-      <div className="center" id="facebook-login">
-        <FacebookButton fb={FB} />
-      </div>
-      <div className="center">or</div>
       {formSection}
       <Button text={switchText} onClick={() => this.setLoginActive()} />
       <Text color={theme.colors.disabled} size="s">To use Raise you must have cookies enabled. If you sign up with Facebook,

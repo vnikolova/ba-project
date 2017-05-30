@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {IconMenu, MenuItem, IconButton} from 'material-ui';
 import PersonIcon from 'material-ui/svg-icons/social/person';
+import ArrowDownIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 
 class TopNav extends Component {
 
@@ -29,7 +30,7 @@ onLogoutClick() {
 
 };
   render() {
-    const { userIsLoggedIn }  = this.props;
+    const { userIsLoggedIn, simple }  = this.props;
     const style ={
       userMenuIcons: {
         display: 'inline'
@@ -41,9 +42,10 @@ onLogoutClick() {
 
     const userLinks = (
       <div className="row center" style={style.wrapper}>
+      <PersonIcon />
       {this.props.userName}
       <IconMenu
-        iconButtonElement={<IconButton style={style.userMenuIcons}><PersonIcon /></IconButton>}
+        iconButtonElement={<IconButton style={style.userMenuIcons}><ArrowDownIcon /></IconButton>}
         anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
         targetOrigin={{horizontal: 'left', vertical: 'top'}}
       >
@@ -79,7 +81,7 @@ onLogoutClick() {
           <Link style={{textDecoration: 'none', color: 'black'}} to={logoLinkPath}><RaiseLogo height="30px"/><span style={styles.span}>raise.</span></Link>
         </div>
         <div className="col center">
-          { userIsLoggedIn ? userLinks : guestLinks }
+          { userIsLoggedIn ? userLinks : simple ? '' : guestLinks }
         </div>
       </div>
       );
@@ -87,11 +89,13 @@ onLogoutClick() {
 };
 
 TopNav.propTypes = {
-  userIsLoggedIn: PropTypes.bool
+  userIsLoggedIn: PropTypes.bool,
+  simple: PropTypes.bool
 };
 
 TopNav.defaultProps = {
-  userIsLoggedIn: false
+  userIsLoggedIn: false,
+  simple: false
 };
 
 export default TopNav;

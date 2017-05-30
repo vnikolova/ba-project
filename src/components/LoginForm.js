@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import {Input, Button } from './';
+import {FacebookButton, Input, Button } from './';
 import validateInput from '../../server/shared/validations/login';
 import axios from 'axios';
+
+/*global FB*/
 
 class LoginForm extends Component {
 
@@ -59,26 +61,34 @@ class LoginForm extends Component {
         width: '80%',
         margin: '0 auto',
       };
-      
+
     if (redirect) {
       return <Redirect to='/dashboard'/>;
     }
   	return(
-  		<div className="col center" style={style}>
-            <Input text="E-mail"
-                  type="email"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.onChange}
-             />
-            <Input text="Password"
-                  type="password"
-                  name="password"
-                  value={this.state.Password}
-                  onChange={this.onChange}
-             />
-            <Button  disabled={this.state.isLoading} main text="Log in" onClick={this.onSubmit} />
-         </div>
+      <div>
+        <div id="fb-root"></div>
+        <div className="center" id="facebook-login">
+          <FacebookButton fb={FB} />
+        </div>
+        <div className="center">or</div>
+        <div className="col center" style={style}>
+              <Input text="E-mail"
+                    type="email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.onChange}
+               />
+              <Input text="Password"
+                    type="password"
+                    name="password"
+                    value={this.state.Password}
+                    onChange={this.onChange}
+               />
+              <Button  disabled={this.state.isLoading} main text="Log in" onClick={this.onSubmit} />
+           </div>
+      </div>
+
   		);
   }
 }

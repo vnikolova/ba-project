@@ -6,8 +6,10 @@
  */
 
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
-class Button extends Component {
+class FacebookButton extends Component {
 
   constructor(props) {
      super(props);
@@ -15,7 +17,7 @@ class Button extends Component {
      this.FB = props.fb;
 
      this.state = {
-        message: ""
+       email: ""
      };
 
   }
@@ -23,21 +25,26 @@ class Button extends Component {
   componentDidMount() {
      this.FB.Event.subscribe('auth.logout',
         this.onLogout.bind(this));
-     this.FB.Event.subscribe('auth.statusChange',
+     this.FB.Event.subscribe('auth.onStatusChange',
         this.onStatusChange.bind(this));
   }
 
   onStatusChange(response) {
-     console.log( response );
-
      if( response.status === "connected" ) {
         this.FB.api('/me', function(response) {
-          //set user session
-           var message = "Welcome " + response.name;
+          console.log( response );
            this.setState({
-              message: message
+              email: response.email
            });
-        })
+        });
+        axios.post('/api/users/fblogin',this.state).then(function(obj){
+          return obj.data;
+        }).then(json => {
+          this.setState({
+            redirect: true,
+            isLoading: false
+          });
+        });
      }
   }
 
@@ -48,6 +55,12 @@ class Button extends Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/dashboard'/>;
+    }
+
      return (
         <div>
            <div
@@ -60,10 +73,9 @@ class Button extends Component {
               data-auto-logout-link="true"
               >
            </div>
-           <div>{this.state.message}</div>
         </div>
      );
   }
 };
 
-export default Button;
+export default FacebookButton;

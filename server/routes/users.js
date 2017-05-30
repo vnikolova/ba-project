@@ -30,6 +30,18 @@ router.post('/login', function(req, res, next){
 	});
 });
 
+//get user from the db
+router.post('/fblogin', function(req, res, next){
+	User.findOne({ email: req.body.email }, function(err, user){
+		if(err) {
+			User.create({ email: req.body.email }).then(function(user){
+				req.session.user = user;
+			}).catch(next);
+		}
+		req.session.user = user;
+		return res.status(200).send();
+	});
+});
 //add user to the db
 router.post('/signup', function(req, res, next){
 
