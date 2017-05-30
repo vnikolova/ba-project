@@ -41,7 +41,7 @@ h1,h2, h3 {
   font-family: 'Lato',sans-serif;
   font-weight:300;
 }
-p, input {
+p, input, span {
   font-family: 'Slabo 27px';
   font-size: 20px;
 }

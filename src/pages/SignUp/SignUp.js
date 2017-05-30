@@ -20,12 +20,14 @@ constructor(props){
     userName: '',
     userEmail: '',
     phonePrefix: '',
+    phoneNumber: '',
     loading: false,
     finished: false,
     stepIndex: 1,
     userType: 1
   };
 
+  this.onChange = this.onChange.bind(this);
 };
 
 componentDidMount(){
@@ -40,6 +42,12 @@ componentDidMount(){
     });
   });
 };
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   dummyAsync = (cb) => {
     this.setState({loading: true}, () => {
@@ -107,47 +115,49 @@ componentDidMount(){
       case 1:
       const personalInfo = (
           <div>
-            I am <TextField floatingLabelText="Your age" /> years old.<br />
-            I come from <TextField floatingLabelText="Your home country" /><br/>
-            I live in <TextField floatingLabelText="The city you live in" /><br/>
-            During the day I am <TextField floatingLabelText="Your job" /><br/>
-            but at night I become <TextField floatingLabelText="Your hidden talent" /><br/>
-            My biggest passions are <TextField floatingLabelText="Name your passions" />
-            <hr />
+            I am <TextField name="userAge" floatingLabelText="Your age" /> years old.<br />
+            I come from <TextField name="country" floatingLabelText="Your home country" /><br/>
+            I live in <TextField name="location" floatingLabelText="The city you live in" /><br/>
+            During the day I am <TextField name="userJob" floatingLabelText="Your job" /><br/>
+            but at night I become <TextField name="userTalent" floatingLabelText="Your hidden talent" /><br/>
+            My biggest passions are <TextField name="userPassions" floatingLabelText="Name your passions" /><br/><br/>
 
-            <PhoneIcon/><TextField floatingLabelText="Contact number" />
           </div>
         );
 
       const orgInfo = (
         <div>
-          <TextField floatingLabelText="Company Name" />
+          <TextField name="orgName" floatingLabelText="Organization Name" />
           <div>
-             We care about <TextField floatingLabelText="What do you care about?" /><br/>
-             Our work involves <TextField floatingLabelText="What do you do about it?" /><br/>
-             We are currently located in <TextField floatingLabelText="Where are you?" /><br/><br/>
+             <span>We care about </span><TextField name="orgCause" floatingLabelText="What do you care about?" /><br/>
+             <span>Our work involves </span><TextField name="orgAction" floatingLabelText="What do you do about it?" /><br/>
+             <span>We are currently located in </span><TextField name="location" floatingLabelText="Where are you?" /><br/><br/>
 
-             <h3>Get verified</h3>
-             <hr />
-             <PhoneIcon/>{PhonePrefix} <TextField floatingLabelText="Contact number" />
           </div>
         </div>
         );
         return (
           <div>
             {isPersonalAccount ? personalInfo : orgInfo}
+            <PhoneIcon/>{PhonePrefix}
+            <TextField name="phonenNumber"
+            floatingLabelText="Contact number"
+            onChange={this.onChange}
+            value={this.state.phoneNumber}
+
+            />
           </div>
         );
       case 2:
         return (
+          <div>
           <p>
-            Try out different ad text to see what brings in the most customers, and learn how to
-            enhance your ads using features like ad extensions. If you run into any problems with your
-            ads, find out how to tell if they^#39;re running and how to resolve approval issues.
+            We have sent a confirmation code to {this.state.phoneNumber}. Please type it below.
           </p>
+          <TextField />
+          </div>
         );
-      default:
-        return 'You\'re a long way from home sonny jim!';
+
     }
   }
 
