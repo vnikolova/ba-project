@@ -11,7 +11,8 @@ export default {
 			test: /\.js$/,
 			include: path.join(__dirname, 'src'),
 			loaders: ['babel']
-		}
+		},
+		 { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192' }
 		]
 	},
 	resolve: {

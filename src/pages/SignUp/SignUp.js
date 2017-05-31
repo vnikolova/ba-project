@@ -103,7 +103,8 @@ componentDidMount(){
     } else if(stepIndex === 2) {
       if(this.state.confirmCode === this.state.userCode){
         this.dummyAsync(() => this.setState({
-          finished: true
+          finished: true,
+          verified: true
         }));
       }
     }
