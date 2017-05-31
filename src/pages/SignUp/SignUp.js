@@ -7,6 +7,7 @@ import {FlatButton, RaisedButton, SelectField, MenuItem } from 'material-ui';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import PhoneIcon from 'material-ui/svg-icons/hardware/smartphone';
 import EmailIcon from 'material-ui/svg-icons/communication/email';
+import CheckIcon from 'material-ui/svg-icons/navigation/check';
 
 import TextField from 'material-ui/TextField';
 import theme from '../../theme.js';
@@ -146,6 +147,7 @@ componentDidMount(){
             <div className="col" style={wrapperTypes}>
               <p>Want to contribute to a project or create your own? You need a personal account.</p>
               <RaisedButton
+              icon={isPersonalAccount ? <CheckIcon /> : false}
               label={isPersonalAccount ? "Personal Account" : 'Switch to Perosnal Account' }
               fullWidth
               labelColor="#fff"
@@ -156,6 +158,7 @@ componentDidMount(){
             <div className="col" style={wrapperTypes}>
             <p>If you&#39;re representing an organization, you can create it in the next stage by selecting this type.</p>
             <RaisedButton
+            icon={!isPersonalAccount ? <CheckIcon /> : false}
             label={isPersonalAccount ? "Switch to Organization Account" : 'Organization Account' }
             fullWidth
             labelColor="#fff"
