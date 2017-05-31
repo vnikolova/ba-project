@@ -19,14 +19,16 @@ constructor(props){
 
   this.state = {
     userIsLoggedIn: false,
+    userType: 0,
+    userInterests: [],
     userName: '',
     userEmail: '',
     phoneNumber: '',
+    location: '',
+    country: '',
     loading: false,
     finished: false,
     stepIndex: 0,
-    userType: 0,
-    userInterests: [],
     confirmCode: ''
   };
 
@@ -75,9 +77,9 @@ componentDidMount(){
     });
     const { phoneNumber } = this.state;
     //send sms to the phone number provided
-    axios.post('/sendsms',{"number": phoneNumber, "code": code}).then(function(json){
-      console.log(json);
-    });
+    // axios.post('/sendsms',{"number": phoneNumber, "code": code}).then(function(json){
+    //   console.log(json);
+    // });
   };
 
   onAccountTypeChange(type, e) {
@@ -295,7 +297,20 @@ componentDidMount(){
           />
           </div>
         );
-
+      case 3:
+        return(
+          <div>
+            <p>
+                Your confirmation code was wrong.<br />
+                <RaisedButton
+                label="Click to resend"
+                onTouchTap={this.verifyPhoneNumber.bind(this)}
+              /> or go back to change your number.<br /><br />
+              If you do not wish to verify your account, <br />
+              you can <Link to="/dashboard">Continue to your dahboard</Link>.
+            </p>
+          </div>
+        )
     }
   }
 
@@ -323,11 +338,14 @@ componentDidMount(){
             onTouchTap={this.handlePrev}
             style={{marginRight: 12}}
           />
-          <RaisedButton
-            label={stepIndex === 2 ? 'Finish' : 'Next'}
-            primary={true}
-            onTouchTap={this.handleNext}
-          />
+          {stepIndex < 3 ?
+            <RaisedButton
+              label={stepIndex === 2 ? 'Finish' : 'Next'}
+              primary={true}
+              onTouchTap={this.handleNext}
+            />
+          :""}
+
         </div>
       </div>
     );
