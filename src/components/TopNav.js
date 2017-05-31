@@ -78,7 +78,7 @@ onLogoutClick() {
     return (
       <div className="row around" style={styles.wrapper}>
         <div className="col inline logo-text">
-          <Link style={{textDecoration: 'none', color: 'black'}} to={logoLinkPath}><RaiseLogo height="30px"/><span style={styles.span}>raise.</span></Link>
+          <Link style={{textDecoration: 'none', color: 'black'}} to={logoLinkPath}><RaiseLogo height="30px"/>raise.</Link>
         </div>
         <div className="col center">
           { userIsLoggedIn ? userLinks : simple ? '' : guestLinks }

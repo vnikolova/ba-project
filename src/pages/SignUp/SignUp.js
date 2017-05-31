@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {TopNav} from '../../components';
 import axios from 'axios';
 import { Step, Stepper,StepLabel } from 'material-ui/Stepper';
@@ -19,33 +20,68 @@ constructor(props){
     userIsLoggedIn: false,
     userName: '',
     userEmail: '',
-    phonePrefix: '',
     phoneNumber: '',
     loading: false,
     finished: false,
-    stepIndex: 1,
-    userType: 1
+    stepIndex: 0,
+    userType: 0,
+    userInterests: [],
+    confirmCode: ''
   };
 
   this.onChange = this.onChange.bind(this);
+  this.onChangeSelect = this.onChangeSelect.bind(this);
 };
 
 componentDidMount(){
 
-  axios.get('/dashboard',this.state).then(function(obj){
-    return obj.data;
-  }).then(json => {
-    console.log(json);
-    this.setState({
-      userName: json.name,
-      userEmail: json.email
+    axios.get('/dashboard',this.state).then(function(obj){
+      return obj.data;
+    }).then(json => {
+      console.log(json);
+      this.setState({
+        userName: json.name,
+        userEmail: json.email
+      });
     });
-  });
-};
+  };
 
-  onChange(e) {
+//on input change
+ onChange = (e) => {
+     this.setState({
+       [e.target.name]: e.target.value,
+     });
+   };
+
+  onChangeSelect = (event, index, values) => {
     this.setState({
-      [e.target.name]: e.target.value,
+      userInterests: values,
+    });
+  };
+
+  verifyPhoneNumber() {
+    //generate confirmation code and save in state
+    var code = "";
+    var possible = "0123456789";
+
+    for(var i=0; i < 5; i++){
+      var num = possible.charAt(Math.floor(Math.random() * possible.length));
+      code += num.toString();
+    }
+
+    this.setState({
+      confirmCode: code
+    });
+    const { phoneNumber } = this.state;
+    //send sms to the phone number provided
+    axios.post('/sendsms',{"number": phoneNumber, "code": code}).then(function(json){
+      console.log(json);
+    });
+  };
+
+  onAccountTypeChange(type, e) {
+    this.setState({
+      userType: type
     });
   };
 
@@ -57,11 +93,21 @@ componentDidMount(){
 
   handleNext = () => {
     const {stepIndex} = this.state;
+
+    if(stepIndex === 1) {
+      console.log(" in step 2");
+      this.verifyPhoneNumber();
+    } else if(stepIndex === 2) {
+      if(this.state.confirmCode === this.state.userCode){
+        this.dummyAsync(() => this.setState({
+          finished: true
+        }));
+      }
+    }
     if (!this.state.loading) {
       this.dummyAsync(() => this.setState({
         loading: false,
-        stepIndex: stepIndex + 1,
-        finished: stepIndex >= 2,
+        stepIndex: stepIndex + 1
       }));
     }
   };
@@ -76,6 +122,10 @@ componentDidMount(){
     }
   };
 
+  isActive(value){
+     return 'btn '+((value === this.state.userType) ?'active':'default');
+   };
+
   getStepContent(stepIndex) {
     const wrapperTypes = {
       padding: '24px',
@@ -83,44 +133,96 @@ componentDidMount(){
     const isPersonalAccount = this.state.userType === 0;
     const userType = isPersonalAccount ? 'Personal' : 'Organization';
 
-    const PhonePrefix = (
-        <SelectField
-          style={{
-            width: '200px'
-          }}
-          value={this.state.phonePrefix || 1}
-        >
-          <MenuItem value={1} primaryText="+34 | Spain" />
-          <MenuItem value={2} primaryText="+45 | Denmark" />
-          <MenuItem value={3} primaryText="+44 | United Kingdom" />
-          <MenuItem value={4} primaryText="+33 | France" />
-        </SelectField>
-      );
-
+  const activeStyle = {
+    border: '1px solid black'
+  };
 
     switch (stepIndex) {
       case 0:
+
         return (
+          <div>
           <div className="row around">
             <div className="col" style={wrapperTypes}>
-              <p>Want to contribute to an organization? You just need a personal account.</p>
-              <RaisedButton label="Personal Account" fullWidth labelColor="#fff" backgroundColor={theme.colors.primaryGreen} />
+              <p>Want to contribute to a project or create your own? You need a personal account.</p>
+              <RaisedButton
+              label={isPersonalAccount ? "Personal Account" : 'Switch to Perosnal Account' }
+              fullWidth
+              labelColor="#fff"
+              backgroundColor={theme.colors.primaryGreen}
+              className={this.isActive(0)}
+              onTouchTap={(e) => this.onAccountTypeChange(0,e)}/>
             </div>
             <div className="col" style={wrapperTypes}>
             <p>If you&#39;re representing an organization, you can create it in the next stage by selecting this type.</p>
-            <RaisedButton label="Organization Account" fullWidth labelColor="#fff" backgroundColor={theme.colors.primaryBlue} />
+            <RaisedButton
+            label={isPersonalAccount ? "Switch to Organization Account" : 'Organization Account' }
+            fullWidth
+            labelColor="#fff"
+            backgroundColor={theme.colors.primaryBlue}
+            className={this.isActive(1)}
+            onTouchTap={() => this.onAccountTypeChange(1)}
+            />
             </div>
+          </div>
+          <span>Continue with a {isPersonalAccount ? 'personal': 'organization'} account?</span>
           </div>
         );
       case 1:
       const personalInfo = (
           <div>
-            I am <TextField name="userAge" floatingLabelText="Your age" /> years old.<br />
-            I come from <TextField name="country" floatingLabelText="Your home country" /><br/>
-            I live in <TextField name="location" floatingLabelText="The city you live in" /><br/>
-            During the day I am <TextField name="userJob" floatingLabelText="Your job" /><br/>
-            but at night I become <TextField name="userTalent" floatingLabelText="Your hidden talent" /><br/>
-            My biggest passions are <TextField name="userPassions" floatingLabelText="Name your passions" /><br/><br/>
+
+            <span>I am </span>
+            <TextField
+              name="userAge"
+              floatingLabelText="Your age"
+              onChange={this.onChange}
+              value={this.state.age}
+            />
+            <span>years old.</span> *<br />
+
+            <span>I come from </span>
+            <TextField
+              name="country"
+              floatingLabelText="Your home country"
+              onChange={this.onChange}
+              value={this.state.country}
+            /> *<br/>
+
+            <span>I live in </span>
+            <TextField
+               name="location"
+               floatingLabelText="The city you live in"
+               onChange={this.onChange}
+               value={this.state.location}
+             /> *<br/>
+
+            <span>During the day I am </span>
+            <TextField
+              name="userJob"
+              floatingLabelText="Your job"
+              onChange={this.onChange}
+              value={this.state.job}
+            /> *<br/>
+
+            <span>I am interested in </span>
+            <SelectField
+            name="userInterests"
+            autoWidth
+            multiple={true}
+            style={{paddingTop: '2em'}}
+            hintText="Select interests"
+            value={this.state.userInterests}
+            onChange={this.onChangeSelect}
+            >
+              <MenuItem checked={this.state.userInterests.indexOf(0) > -1} key={0} value={0} primaryText="Technology" />
+              <MenuItem checked={this.state.userInterests.indexOf(1) > -1} key={1} value={1} primaryText="Science & Research" />
+              <MenuItem checked={this.state.userInterests.indexOf(2) > -1} key={2} value={2} primaryText="Film & Photography" />
+              <MenuItem checked={this.state.userInterests.indexOf(3) > -1} key={3} value={3} primaryText="Sports" />
+              <MenuItem checked={this.state.userInterests.indexOf(4) > -1} key={4} value={4} primaryText="Community" />
+            </SelectField> *
+
+            <br/><br/>
 
           </div>
         );
@@ -129,9 +231,33 @@ componentDidMount(){
         <div>
           <TextField name="orgName" floatingLabelText="Organization Name" />
           <div>
-             <span>We care about </span><TextField name="orgCause" floatingLabelText="What do you care about?" /><br/>
-             <span>Our work involves </span><TextField name="orgAction" floatingLabelText="What do you do about it?" /><br/>
-             <span>We are currently located in </span><TextField name="location" floatingLabelText="Where are you?" /><br/><br/>
+             <span>We care about </span>
+             <TextField
+               name="orgCause"
+               floatingLabelText="What do you care about?"
+               hintText="e.g. Air pollution, global warming"
+               onChange={this.onChange}
+               value={this.state.cause}
+             /> *<br/>
+
+             <span>Our work involves </span>
+             <TextField
+               name="orgAction"
+               floatingLabelText="What do you do about it?"
+               hintText="e.g. Raise awareness"
+               onChange={this.onChange}
+               value={this.state.action}
+             /> *<br/>
+
+             <span>We are currently located in </span>
+             <TextField
+               name="location"
+               floatingLabelText="Where are you?"
+               hintText="e.g. Barcelona,Spain"
+               onChange={this.onChange}
+               value={this.state.location}
+
+             /> *<br/><br/>
 
           </div>
         </div>
@@ -139,22 +265,31 @@ componentDidMount(){
         return (
           <div>
             {isPersonalAccount ? personalInfo : orgInfo}
-            <PhoneIcon/>{PhonePrefix}
-            <TextField name="phonenNumber"
+            <PhoneIcon/>
+            <TextField
+            name="phoneNumber"
             floatingLabelText="Contact number"
+            hintText="e.g. +34668552892"
             onChange={this.onChange}
             value={this.state.phoneNumber}
-
-            />
+            />* <br /><br />
+            <div className="row">
+              <span>* Required fields</span>
+            </div>
           </div>
         );
       case 2:
         return (
           <div>
           <p>
-            We have sent a confirmation code to {this.state.phoneNumber}. Please type it below.
+            We have sent a confirmation code to {this.state.phoneNumber}. Please type it below to verify your account.
           </p>
-          <TextField />
+          <TextField
+            name="userCode"
+            floatingLabelText="Confirmation Code"
+            onChange={this.onChange}
+            value={this.state.userCode}
+          />
           </div>
         );
 
@@ -169,15 +304,7 @@ componentDidMount(){
       return (
         <div style={contentStyle}>
           <p>
-            <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                this.setState({stepIndex: 0, finished: false});
-              }}
-            >
-              Click here
-            </a> to reset the example.
+          Congratulations! Your account is complete.<Link to="/dashboard">Go to your dahboard</Link>
           </p>
         </div>
       );
@@ -211,7 +338,7 @@ componentDidMount(){
         <TopNav simple />
         <div className="col center">
           <h2>Hello, {userName}!</h2>
-          <h3>You are just steps away from finding endless opportunities.</h3>
+          <h3>Your account has been created.<br/>We just need to set up a few things</h3>
         </div>
         <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>

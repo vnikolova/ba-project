@@ -127,3 +127,6 @@ p, input, span {
   text-decoration: none;
   color: none;
 }
+.active {
+  color: red
+}

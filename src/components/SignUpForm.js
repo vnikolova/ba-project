@@ -76,7 +76,7 @@ class SignUpForm extends Component {
     const { disabled } = theme.colors;
 
      if (redirect) {
-       return <Redirect to='/dashboard'/>;
+       return <Redirect to='/signup'/>;
      }
   	return(
               <div className="col center" style={style}>
