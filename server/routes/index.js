@@ -4,7 +4,7 @@ const keys = require('../twiliokeys');
 
 let router = express.Router();
 
-router.get('/dashboard', function(req, res, next){
+router.get('/api', function(req, res, next){
 
   if(!req.session.user) {
     return res.status(401).send();

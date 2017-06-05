@@ -1,6 +1,7 @@
 
 const express = require('express');
 const users = require('./server/routes/users');
+const projects = require('./server/routes/projects');
 const index = require('./server/routes/index');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -33,7 +34,7 @@ app.use(session({
 //add routes handlers
 app.use('/api/users',users);
 app.use(index);
-
+app.use(projects);
 //error handling middleware
 app.use(function(err, req, res, next){
   res.status(422).send({ error: err.message });

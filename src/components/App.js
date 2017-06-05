@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Route, BrowserRouter as Router} from 'react-router-dom';
-import {Home, Dashboard, SignUp} from '../pages';
+import {Home, Dashboard, SignUp, Search} from '../pages';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -11,13 +11,15 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-      <Router>
-        <div>
-    <Route exact path="/" component={Home} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/signup" component={SignUp} />
-    </div>
-    </Router></MuiThemeProvider>
+        <Router>
+          <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/search" component={Search} />
+        </div>
+      </Router>
+    </MuiThemeProvider>
 
       );
   }

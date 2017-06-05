@@ -19,6 +19,7 @@ const fontFamilies = {
   text:  'Slabo27px'
 };
 const border = '1px solid lightgrey';
+const borderRadius = '25px';
 
 const fontSizes = {
   0: '16px',
@@ -38,6 +39,7 @@ const padding = {
 export default {
   colors,
   border,
+  borderRadius,
   fontSizes,
   fontFamilies,
   padding

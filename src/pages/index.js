@@ -7,9 +7,11 @@
 import Home from './Home/Home.js';
 import Dashboard from './Dashboard/Dashboard.js';
 import SignUp from './SignUp/SignUp.js';
+import Search from './Search/Search.js';
 
 export {
   Dashboard,
   Home,
+  Search,
   SignUp
   }
