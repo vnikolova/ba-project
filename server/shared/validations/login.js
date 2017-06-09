@@ -2,7 +2,7 @@ const Validator = require('validator');
 const isEmpty = require('lodash/isEmpty');
 
 module.exports =  function validateInput(data) {
-	let errors = {};
+	var errors = {};
 
 	if(Validator.isEmpty(data.email)){
 		errors.email = "This field is required";
@@ -15,7 +15,7 @@ module.exports =  function validateInput(data) {
 	}
 
 	return {
-		errors,
+		errors: errors,
 		isValid: isEmpty(errors)
 	}
 }
