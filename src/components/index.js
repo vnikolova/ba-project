@@ -9,10 +9,12 @@ import LoginForm from './LoginForm.js';
 import SignUpForm from './SignUpForm.js';
 import Popup from './Popup.js';
 import Text from './Text.js';
+import CategoryItem from './CategoryItem.js';
 
 export {
   App,
   Button,
+  CategoryItem,
   FacebookButton,
   Input,
   Link,

@@ -33,7 +33,8 @@ const padding = {
   3: '12px',
   4: '16px',
   5: '24px',
-  6: '30px'
+  6: '30px',
+  7: '45px'
 }
 
 export default {

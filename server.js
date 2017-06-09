@@ -6,6 +6,8 @@ const index = require('./server/routes/index');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const path = require('path');
+
 //set up express app
 const app = express();
 

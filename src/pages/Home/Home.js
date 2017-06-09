@@ -5,8 +5,9 @@
  */
 
 import React, { Component } from 'react';
-import {TopNav, Button,Popup, LoginSection} from '../../components';
+import {TopNav, Button,Popup, LoginSection, CategoryItem} from '../../components';
 import theme from '../../theme.js';
+import {Row, Col} from 'react-flexbox-grid';
 
 class Home extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Home extends Component {
     const style = {
       intro: {
         height: '65vh',
-        backgroundColor: theme.colors.background
+        color: '#FFF'
       },
       cats: {
         height: '35vh',
@@ -35,48 +36,53 @@ class Home extends Component {
       }
     }
     return (
-      <div className="col">
+      <Col>
 	       <TopNav onLoginClick={() => this.handleLoginModal(true)} />
 
         { /* section one intro */}
 
-           <div className="row around middle" style={style.intro}>
-              <div className="col center">
-                <h1>Meet your new team. Build your ideas.</h1>
-                <p>No more time-wasting. No BS. </p>
-                <Button main text="Sign me up!" onClick={() => this.handleLoginModal(true)}/>
-              </div>
-              <div className="col center">
-              </div>
-           </div>
+           <Row className="video-bg" style={style.intro} middle="xs">
+                <video preload="preload" playsInline autoPlay muted loop>
+                  <source src="video/bg-video.mp4" type="video/mp4" />
+                </video>
+                  <Col xsOffset={2} xs={4}>
+                    <h1>Meet your new team. Build your ideas.</h1>
+                    <p>No more time-wasting. No BS. </p>
+                    <Button main text="Sign me up!" onClick={() => this.handleLoginModal(true)}/>
+                  </Col>
+           </Row>
 
            { /* section two - categories */}
+            <Row center="xs">
+              <h2 className="center">Discover our categories</h2>
+            </Row>
+            <Row center="xs">
+                <Col xs={2}>
+                  <CategoryItem title="Science & Reserach"/>
+                </Col>
+                <Col xs={2}>
+                  <CategoryItem title="Technology"/>
+                </Col>
+                <Col xs={2}>
+                  <CategoryItem title="Film & Photography"/>
+                </Col>
 
-            <h2 className="center">Discover our categories</h2>
-            <div className="row center" style={style.cats}>
-                <div className="col category bg-science">
-                  <h3>Science & Reserach</h3>
-                </div>
-                <div className="col category bg-tech">
-                  <h3>Technology</h3>
-                </div>
-                <div className="col category bg-film">
-                  <h3>Film & Photography</h3>
-                </div>
-                <div className="col category bg-music">
-                  <h3>Music</h3>
-                </div>
-                <div className="col category bg-sports">
-                  <h3>Sports</h3>
-                </div>
-                <div className="col category bg-society">
-                  <h3>Community</h3>
-                </div>
-          </div>
+          </Row>
+          <Row center="xs">
+          <Col xs={2}>
+            <CategoryItem title="Music"/>
+          </Col>
+          <Col xs={2}>
+            <CategoryItem title="Sports"/>
+          </Col>
+          <Col xs={2}>
+            <CategoryItem title="Community"/>
+          </Col>
+          </Row>
            <Popup open={this.state.loginModalIsOpen} onClose={() => this.handleLoginModal(false)} title="Sign In" narrow>
             <LoginSection />
            </Popup>
-      </div>
+      </Col>
       );
   }
 
