@@ -10,12 +10,14 @@ import PropTypes from 'prop-types';
 class Button extends Component {
 
   render() {
-    const { main,text, ...props} = this.props;
+    const { main,text,color, ...props} = this.props;
     const className = main ? 'button-main' : 'button-no-style';
-
+    const style = {
+      color: color
+    }
     return (
       <div>
-        <input {...props} className={className} type="button" value={text} />
+        <input {...props} style={style} className={className} type="button" value={text} />
       </div>
       );
   }

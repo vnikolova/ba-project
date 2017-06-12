@@ -6,6 +6,10 @@
 const colors = {
   primaryGreen: '#3CE8A3',
   primaryBlue: '#5A99E9',
+  film: '#D32F2F',
+  science: '#512DA8',
+  music: '#388E3C',
+  sports: '#455A64',
   text: '#231935',
   background: '#E7F9FC',
   disabled: '#677077',
