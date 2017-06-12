@@ -23,11 +23,11 @@ Open a new command line in the root folder of the project and install all depend
 :raised_hand: Wait until the node modules have finished installing, then start the server:
 ``` npm start```
 
-#### :pray: If there's a God...
+#### :pray: If there's a God...(or, like,a properly set up server)
 The application can be accessed at http://localhost:3000/
  
  
-**Note:** The server will be running on http://localhost:3001/.
+**Note:** The express server will be running on http://localhost:3001/.
 To test only server-side code without the need of restarting the build, use ```nodemon server.js``` instead of ```npm start```
 
 
