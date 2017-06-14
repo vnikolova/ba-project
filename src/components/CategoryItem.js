@@ -4,19 +4,21 @@
  * be liable for any claim or damages.
  * This is proprietary software.
  */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Paper} from 'material-ui';
 import theme from '../theme.js';
 
 const CategoryItem = (props) => {
+  const {size, color, ...prop} = props;
+  
     const iconStyle = {
-      height: '64px',
+      height: size / 5 || '64px',
       width: '64px',
       color: theme.colors.grey
     }
     const style = {
-      height: 250,
+      height: size || 250,
       padding: theme.padding[6],
       width: '100%',
       margin: 20,
@@ -24,11 +26,11 @@ const CategoryItem = (props) => {
       textAlign: 'center',
       display: 'inline-block',
       borderBottom: '5px solid',
-      borderColor: props.color
+      borderColor: color
     };
 
     return (
-      <Paper style={style} zDepth={2}>
+      <Paper {...prop} style={style} zDepth={2}>
         <h3>{props.title}</h3>
         { props.icon ?
           React.cloneElement(props.icon, {style:iconStyle }, {})
@@ -37,4 +39,9 @@ const CategoryItem = (props) => {
       );
 };
 
+CategoryItem.propTypes = {
+  color: PropTypes.string,
+  icon: PropTypes.object
+
+}
 export default CategoryItem;

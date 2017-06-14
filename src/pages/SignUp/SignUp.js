@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {TopNav} from '../../components';
+import {TopNav, CategoryItem} from '../../components';
 import axios from 'axios';
 import { Step, Stepper,StepLabel } from 'material-ui/Stepper';
-import {FlatButton, RaisedButton, SelectField, MenuItem } from 'material-ui';
+import {FlatButton, RaisedButton, SelectField, MenuItem, DatePicker, AutoComplete, Chip } from 'material-ui';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import PhoneIcon from 'material-ui/svg-icons/hardware/smartphone';
 import EmailIcon from 'material-ui/svg-icons/communication/email';
 import CheckIcon from 'material-ui/svg-icons/navigation/check';
-
+import TechIcon from 'material-ui/svg-icons/hardware/laptop';
+import ScienceIcon from 'material-ui/svg-icons/action/lightbulb-outline';
+import MusicIcon from 'material-ui/svg-icons/av/album';
+import SportsIcon from 'material-ui/svg-icons/places/pool';
+import FilmIcon from 'material-ui/svg-icons/image/camera-alt';
+import CommunityIcon from 'material-ui/svg-icons/image/nature-people';
 import TextField from 'material-ui/TextField';
 import theme from '../../theme.js';
+import {Row,Col} from 'react-flexbox-grid';
 
 class SignUp extends Component {
 
@@ -19,32 +25,36 @@ constructor(props){
 
   this.state = {
     userIsLoggedIn: false,
-    userType: 0,
-    userInterests: [],
     userName: '',
     userEmail: '',
+    userId: '',
+    dob: '',
     phoneNumber: '',
     location: '',
     country: '',
     loading: false,
     finished: false,
     stepIndex: 0,
-    confirmCode: ''
+    confirmCode: '',
+    tags: []
   };
 
   this.onChange = this.onChange.bind(this);
-  this.onChangeSelect = this.onChangeSelect.bind(this);
+  this.onChipAdd = this.onChipAdd.bind(this);
+  this.onChangeCountry = this.onChangeCountry.bind(this);
+  this.onDateChange = this.onDateChange.bind(this);
+
 };
 
 componentDidMount(){
-
-    axios.get('/dashboard',this.state).then(function(obj){
+    axios.get('/api',this.state).then(function(obj){
+      console.log(obj);
       return obj.data;
     }).then(json => {
-      console.log(json);
       this.setState({
         userName: json.name,
-        userEmail: json.email
+        userEmail: json.email,
+        userId: json._id
       });
     });
   };
@@ -56,12 +66,26 @@ componentDidMount(){
      });
    };
 
-  onChangeSelect = (event, index, values) => {
+//on date change
+onDateChange = (e, obj, i) => {
     this.setState({
-      userInterests: values,
+      age: obj,
     });
   };
 
+//on country change
+onChangeCountry = (e, i,v) => {
+    this.setState({
+      country: v,
+    });
+  };
+//add a tag
+onChipAdd = () => {
+  this.setState({
+    tags: this.state.tags.concat(this.state.tag),
+    tag: ''
+  });
+}
   verifyPhoneNumber() {
     //generate confirmation code and save in state
     var code = "";
@@ -76,15 +100,9 @@ componentDidMount(){
       confirmCode: code
     });
     const { phoneNumber } = this.state;
-    //send sms to the phone number provided
-    // axios.post('/sendsms',{"number": phoneNumber, "code": code}).then(function(json){
-    //   console.log(json);
-    // });
-  };
-
-  onAccountTypeChange(type, e) {
-    this.setState({
-      userType: type
+    // send sms to the phone number provided
+    axios.post('/sendsms',{"number": phoneNumber, "code": code}).then(function(json){
+      console.log(json);
     });
   };
 
@@ -95,13 +113,22 @@ componentDidMount(){
   };
 
   handleNext = () => {
-    const {stepIndex} = this.state;
+    const {stepIndex,userId, dob, job, tags, location, country, phoneNumber} = this.state;
 
     if(stepIndex === 1) {
-      console.log(" in step 2");
       this.verifyPhoneNumber();
     } else if(stepIndex === 2) {
       if(this.state.confirmCode === this.state.userCode){
+        const data = {
+          "dob": dob ,
+          "location": location,
+          "country": country,
+          "phoneNumber": phoneNumber,
+          "job": job,
+          "interests": tags
+        }
+        //save data to db
+        axios.put('/api/users/update/'+userId,data);
         this.dummyAsync(() => this.setState({
           finished: true,
           verified: true
@@ -126,6 +153,27 @@ componentDidMount(){
     }
   };
 
+  //autocomplete
+  handleUpdateInput = (searchText) => {
+    this.setState({
+      job: searchText,
+    });
+  };
+
+  //autocomplete
+  handleNewRequest = () => {
+    this.setState({
+      job: '',
+    });
+  };
+  //delete a tag
+  onDeleteTag = (key) => {
+    this.chipData = this.state.tags;
+    const chipToDelete = this.chipData.map((chip, index) => index).indexOf(key);
+    this.chipData.splice(chipToDelete, 1);
+    this.setState({chipData: this.chipData});
+  };
+
   isActive(value){
      return 'btn '+((value === this.state.userType) ?'active':'default');
    };
@@ -134,143 +182,66 @@ componentDidMount(){
     const wrapperTypes = {
       padding: '24px',
     };
-    const isPersonalAccount = this.state.userType === 0;
-    const userType = isPersonalAccount ? 'Personal' : 'Organization';
 
   const activeStyle = {
     border: '1px solid black'
   };
-
+  const row = {
+    display: 'flex',
+    alignItems: 'center'
+  }
     switch (stepIndex) {
       case 0:
-
         return (
           <div>
-          <div className="row around">
-            <div className="col" style={wrapperTypes}>
-              <p>Want to contribute to a project or create your own? You need a personal account.</p>
-              <RaisedButton
-              icon={isPersonalAccount ? <CheckIcon /> : false}
-              label={isPersonalAccount ? "Personal Account" : 'Switch to Perosnal Account' }
-              fullWidth
-              labelColor="#fff"
-              backgroundColor={theme.colors.primaryGreen}
-              className={this.isActive(0)}
-              onTouchTap={(e) => this.onAccountTypeChange(0,e)}/>
-            </div>
-            <div className="col" style={wrapperTypes}>
-            <p>If you&#39;re representing an organization, you can create it in the next stage by selecting this type.</p>
-            <RaisedButton
-            icon={!isPersonalAccount ? <CheckIcon /> : false}
-            label={isPersonalAccount ? "Switch to Organization Account" : 'Organization Account' }
-            fullWidth
-            labelColor="#fff"
-            backgroundColor={theme.colors.primaryBlue}
-            className={this.isActive(1)}
-            onTouchTap={() => this.onAccountTypeChange(1)}
-            />
-            </div>
-          </div>
-          <span>Continue with a {isPersonalAccount ? 'personal': 'organization'} account?</span>
-          </div>
-        );
-      case 1:
-      const personalInfo = (
-          <div>
-
-            <span>I am </span>
-            <TextField
-              name="userAge"
-              floatingLabelText="Your age"
-              onChange={this.onChange}
+          <div style={row}>
+            <span>I was born on &nbsp;</span>
+            <DatePicker
+              hintText="Date of Birth"
+              container="inline"
+              onChange={this.onDateChange}
               value={this.state.age}
             />
-            <span>years old.</span> *<br />
+          </div>
 
-            <span>I come from </span>
-            <TextField
-              name="country"
-              floatingLabelText="Your home country"
-              onChange={this.onChange}
+          <div style={row}>
+            <span>I come from &nbsp;</span>
+            <SelectField
+              hintText="Your home country"
               value={this.state.country}
-            /> *<br/>
+              onChange={this.onChangeCountry}
+            >
+              {theme.countries.map((country, index) => (
+                <MenuItem
+                  key={index}
+                  insetChildren={true}
+                  value={country}
+                  primaryText={country}
+                />
+              ))}
+            </SelectField>
+            </div><br/>
 
-            <span>I live in </span>
+            <span>I live in &nbsp;</span>
             <TextField
                name="location"
                floatingLabelText="The city you live in"
                onChange={this.onChange}
                value={this.state.location}
-             /> *<br/>
+             /><br/>
 
-            <span>During the day I am </span>
-            <TextField
-              name="userJob"
-              floatingLabelText="Your job"
-              onChange={this.onChange}
-              value={this.state.job}
-            /> *<br/>
-
-            <span>I am interested in </span>
-            <SelectField
-            name="userInterests"
-            autoWidth
-            multiple={true}
-            style={{paddingTop: '2em'}}
-            hintText="Select interests"
-            value={this.state.userInterests}
-            onChange={this.onChangeSelect}
-            >
-              <MenuItem checked={this.state.userInterests.indexOf(0) > -1} key={0} value={0} primaryText="Technology" />
-              <MenuItem checked={this.state.userInterests.indexOf(1) > -1} key={1} value={1} primaryText="Science & Research" />
-              <MenuItem checked={this.state.userInterests.indexOf(2) > -1} key={2} value={2} primaryText="Film & Photography" />
-              <MenuItem checked={this.state.userInterests.indexOf(3) > -1} key={3} value={3} primaryText="Sports" />
-              <MenuItem checked={this.state.userInterests.indexOf(4) > -1} key={4} value={4} primaryText="Community" />
-            </SelectField> *
+            <div style={row}>
+              <span>During the day I am &nbsp;</span>
+              <AutoComplete
+                hintText="Your job"
+                searchText={this.state.job}
+                onUpdateInput={this.handleUpdateInput}
+                dataSource={theme.jobs}
+                filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+              />
+            </div><br/>
 
             <br/><br/>
-
-          </div>
-        );
-
-      const orgInfo = (
-        <div>
-          <TextField name="orgName" floatingLabelText="Organization Name" />
-          <div>
-             <span>We care about </span>
-             <TextField
-               name="orgCause"
-               floatingLabelText="What do you care about?"
-               hintText="e.g. Air pollution, global warming"
-               onChange={this.onChange}
-               value={this.state.cause}
-             /> *<br/>
-
-             <span>Our work involves </span>
-             <TextField
-               name="orgAction"
-               floatingLabelText="What do you do about it?"
-               hintText="e.g. Raise awareness"
-               onChange={this.onChange}
-               value={this.state.action}
-             /> *<br/>
-
-             <span>We are currently located in </span>
-             <TextField
-               name="location"
-               floatingLabelText="Where are you?"
-               hintText="e.g. Barcelona,Spain"
-               onChange={this.onChange}
-               value={this.state.location}
-
-             /> *<br/><br/>
-
-          </div>
-        </div>
-        );
-        return (
-          <div>
-            {isPersonalAccount ? personalInfo : orgInfo}
             <PhoneIcon/>
             <TextField
             name="phoneNumber"
@@ -278,12 +249,63 @@ componentDidMount(){
             hintText="e.g. +34668552892"
             onChange={this.onChange}
             value={this.state.phoneNumber}
-            />* <br /><br />
-            <div className="row">
-              <span>* Required fields</span>
-            </div>
+            /><br /><br />
           </div>
         );
+      case 1:
+          return (
+            <div>
+            <h2>Which categories are you interested in ?</h2>
+            <Row>
+                <Col xs={3}>
+                  <CategoryItem size="180" color={theme.colors.science} icon={<ScienceIcon />} title="Science & Reserach"/>
+                </Col>
+                <Col xs={3}>
+                  <CategoryItem size="180" color={theme.colors.primaryBlue} icon={<TechIcon />} title="Technology"/>
+                </Col>
+                <Col xs={3}>
+                  <CategoryItem size="180" color={theme.colors.film} icon={<FilmIcon />} title="Film & Photography"/>
+                </Col>
+
+          </Row>
+          <Row>
+            <Col xs={3}>
+              <CategoryItem size="180" color={theme.colors.music} icon={<MusicIcon />} title="Music"/>
+            </Col>
+            <Col xs={3}>
+              <CategoryItem size="180" color={theme.colors.sports} icon={<SportsIcon />} title="Sports"/>
+            </Col>
+            <Col xs={3}>
+              <CategoryItem size="180" color={theme.colors.primaryGreen} icon={<CommunityIcon />} title="Community"/>
+            </Col>
+          </Row>
+
+          <h3>Missing something? Add project related tags to follow.</h3>
+          <Row>
+        { this.state.tags.map((tag, index) => (
+            <Chip
+              key={index}
+              style={{margin: '4px'}}
+              onRequestDelete={() => this.onDeleteTag(index)}
+            >
+            {tag}
+          </Chip>
+        ))
+      }
+        </Row>
+          <TextField
+            name="tag"
+            floatingLabelText="Your interests"
+            hintText="e.g. Environment"
+            onChange={this.onChange}
+            value={this.state.tag}
+          />
+          <RaisedButton
+          label="Add"
+          onTouchTap={this.onChipAdd}
+        />
+        </div>
+          );
       case 2:
         return (
           <div>
@@ -342,8 +364,8 @@ componentDidMount(){
           {stepIndex < 3 ?
             <RaisedButton
               label={stepIndex === 2 ? 'Finish' : 'Next'}
-              primary={true}
               onTouchTap={this.handleNext}
+              primary={true}
             />
           :""}
 
@@ -365,10 +387,10 @@ componentDidMount(){
         <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel>What do you need?</StepLabel>
+            <StepLabel>Who are you?</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Who are you?</StepLabel>
+            <StepLabel>What are your interests?</StepLabel>
           </Step>
           <Step>
             <StepLabel>Finish</StepLabel>

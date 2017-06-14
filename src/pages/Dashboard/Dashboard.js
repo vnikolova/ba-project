@@ -8,11 +8,9 @@ import {Row, Col} from 'react-flexbox-grid';
 import Main from '../../layouts/Main.js';
 
 class Dashboard extends Component {
-  constructor(props){
-    super(props);
-  }
+
   render() {
-    const { userIsLoggedIn, user } = this.props;
+    const { userIsLoggedIn } = this.props;
     const message = userIsLoggedIn ? "Welcome to your dashboard " : "You need to be logged in to see this page";
     const style = {
       paper: {
