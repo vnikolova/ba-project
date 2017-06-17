@@ -6,51 +6,78 @@ import { Avatar, RaisedButton, Paper } from 'material-ui';
 import theme from '../../theme.js';
 import {Row, Col} from 'react-flexbox-grid';
 import Main from '../../layouts/Main.js';
+import axios from 'axios';
 
 class Dashboard extends Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
+
+  componentWillMount() {
+    axios.get('/api',this.state).then(function(obj){
+      return obj.data;
+    }).then(json => {
+      this.setState({
+        user: json
+      });
+    });
+  };
+
   render() {
-    const { userIsLoggedIn } = this.props;
-    const message = userIsLoggedIn ? "Welcome to your dashboard " : "You need to be logged in to see this page";
     const style = {
       paper: {
         padding: theme.padding[5],
         marginTop:'10px',
-        marginBottom: '80px'
+        marginBottom: '80px',
+        borderRight: '4px solid',
+        borderColor: theme.colors.primaryGreen
+      },
+      bordered: {
+        padding: theme.padding[5],
+        marginTop:'10px',
+        marginBottom: '80px',
+        borderBottom: '4px solid',
+        borderColor: theme.colors.primaryBlue
       }
     }
 
+    const { user } = this.state;
+
     return (
       <Main>
-        <h1 className="center">{message}</h1>
-
         <Row>
-          <Col xs={4} className="center">
-               <Avatar src="../../images/music-bg.jpeg" size={150} />
-              <div><span>{}</span></div>
-              <div><span>{}</span></div>
+          <Col xs={3} xsOffset={1} className="center">
+            <Paper style={style.bordered}>
+               <Avatar src="img/user.png" size={150} />
+              <div><span>{user.email}</span></div>
+              <div><span>{user.name}</span></div>
               <br /><br />
               <RaisedButton
                 label="Edit profile"
               />
+            </Paper>
            </Col>
 
            <Col xs={6} xsOffset={1}>
              <Paper style={style.paper}>
-               <h2><ProjectIcon />Projects contributing to:</h2>
+               <h2><ProjectIcon color={theme.colors.grey} />Projects contributing to:</h2>
               <RaisedButton
                 href="/search"
                 label="Search projects"
-                icon={<SearchIcon />}
+                icon={<SearchIcon color={theme.colors.grey} />}
               />
              </Paper>
 
              <Paper style={style.paper}>
-               <h2><ProjectIcon />organized by you:</h2>
+               <h2><ProjectIcon color={theme.colors.grey} />organized by you:</h2>
               <RaisedButton
                 href="/create"
                 label="create a project"
-                icon={<AddIcon />}
+                icon={<AddIcon color={theme.colors.grey} />}
               />
              </Paper>
           </Col>
