@@ -30,6 +30,9 @@ video {
   flex-wrap: nowrap;
   flex-direction: row;
 }
+.align-base {
+  align-items: baseline;
+}
 .around {
   justify-content: space-around;
 }

@@ -8,8 +8,10 @@ import Home from './Home/Home.js';
 import Dashboard from './Dashboard/Dashboard.js';
 import SignUp from './SignUp/SignUp.js';
 import Search from './Search/Search.js';
+import CreateProject from './Create/CreateProject.js';
 
 export {
+  CreateProject,
   Dashboard,
   Home,
   Search,

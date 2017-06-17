@@ -8,14 +8,13 @@ const projectSchema = new Schema({
     description: String,
     user_id: Schema.Types.ObjectId,
     location: String,
-    spots: Number,
     funding: {
       indiegogo: String,
       kickstarter: String
     },
     cause: String,
-    topic: [String],
-    roles: [String],
+    category: String,
+    roles: String,
     deadline: Date,
     updated: {
       type: Date,

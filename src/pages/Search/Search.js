@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Main from '../../layouts/Main.js';
 import { GridItem, SearchBar } from './components';
-import { GridList, GridTile, IconButton } from 'material-ui';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import { GridList, GridTile } from 'material-ui';
 import axios from 'axios';
 
 class Search extends Component {

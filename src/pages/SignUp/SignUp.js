@@ -6,8 +6,6 @@ import { Step, Stepper,StepLabel } from 'material-ui/Stepper';
 import {FlatButton, RaisedButton, SelectField, MenuItem, DatePicker, AutoComplete, Chip } from 'material-ui';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import PhoneIcon from 'material-ui/svg-icons/hardware/smartphone';
-import EmailIcon from 'material-ui/svg-icons/communication/email';
-import CheckIcon from 'material-ui/svg-icons/navigation/check';
 import TechIcon from 'material-ui/svg-icons/hardware/laptop';
 import ScienceIcon from 'material-ui/svg-icons/action/lightbulb-outline';
 import MusicIcon from 'material-ui/svg-icons/av/album';
@@ -179,13 +177,7 @@ onChipAdd = () => {
    };
 
   getStepContent(stepIndex) {
-    const wrapperTypes = {
-      padding: '24px',
-    };
 
-  const activeStyle = {
-    border: '1px solid black'
-  };
   const row = {
     display: 'flex',
     alignItems: 'center'
@@ -375,7 +367,7 @@ onChipAdd = () => {
   }
 
   render() {
-    const { userIsLoggedIn, userName, loading, stepIndex } = this.state;
+    const { userName, loading, stepIndex } = this.state;
 
     return (
       <div>
