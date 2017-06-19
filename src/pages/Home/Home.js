@@ -56,8 +56,8 @@ class Home extends Component {
                   <source src="video/bg-video.mp4" type="video/mp4" />
                 </video>
                   <Col xsOffset={2} xs={4}>
-                    <h1>Do good by doing what you&#39;re best at.</h1>
-                    <p>Join a project now to support the causes you believe in.</p>
+                    <h1>It takes a village. <br />Be part of it.</h1>
+                    <p>Join or create a project now to support the causes you believe in.</p>
                     <Button color="#fff" main text="Sign me up!" onClick={() => this.handleLoginModal(true)}/>
                   </Col>
            </Row>

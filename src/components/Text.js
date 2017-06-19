@@ -7,7 +7,8 @@ class Text extends Component {
     const {size, color} = {...this.props};
     const style = {
       color: color ? color : '#000',
-      fontSize: size === 's' ? theme.fontSizes[0] : theme.fontSizes[1]
+      fontSize: size === 's' ? theme.fontSizes[1] :
+      size === 'xs' ? theme.fontSizes[0] : theme.fontSizes[2]
     }
     return (
       <div>

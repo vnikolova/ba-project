@@ -69,11 +69,9 @@ createProject() {
     axios.post('/create',this.state).then(function(obj){
       return obj.data;
     }).then(json => {
-      if(json) {
         this.setState({
           finished: true
         });
-      }
     });
   };
 
@@ -86,10 +84,12 @@ createProject() {
     return(
     <Main>
     {this.state.finished ?
-      <div className="row">
-        <h1>Your project has been created.</h1>
-        <Link to="/dashboard">Continue to your dahboard</Link>
-       </div>
+      <Row center="xs" middle="xs">
+        <Col xs={6}>
+          <h1>Your project has been created.</h1>
+          <Link to="/dashboard"><RaisedButton label="Continue to your dahboard" /></Link>
+        </Col>
+       </Row>
     : <div>
       <Row><Col xs={4} xsOffset={2}><h1 className="middle">Create a new project</h1></Col></Row>
       <Row>

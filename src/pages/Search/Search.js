@@ -57,13 +57,11 @@ constructor(props){
     if(category) {
       filteredProjects = this.state.projects.filter((e) => e.category == category);
     } else if((searchMode === true) && (filterByCategory !== "All")) {
-      console.log("in two conditions");
       filteredProjects = this.state.projects.filter((e) =>
         (e.title.toLowerCase().indexOf(searchText) !== -1) && (e.category === filterByCategory)
       );
     }
     else {
-      console.log("in else");
       filteredProjects = this.state.projects.filter((e) => e.title.toLowerCase().indexOf(searchText) !== -1);
       }
 

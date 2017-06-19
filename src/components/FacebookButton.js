@@ -17,7 +17,9 @@ class FacebookButton extends Component {
      this.FB = props.fb;
 
      this.state = {
-       email: ""
+       name: "",
+       email: "",
+       fb: true
      };
 
   }
@@ -32,17 +34,17 @@ class FacebookButton extends Component {
   onStatusChange(response) {
      if( response.status === "connected" ) {
         this.FB.api('/me', function(response) {
-          console.log( response );
+          console.log(response);
            this.setState({
+             name: response.name,
               email: response.email
            });
         });
-        axios.post('/api/users/fblogin',this.state).then(function(obj){
+        axios.post('/api/users/signup',this.state).then(function(obj){
           return obj.data;
         }).then(json => {
           this.setState({
-            redirect: true,
-            isLoading: false
+            redirect: true
           });
         });
      }

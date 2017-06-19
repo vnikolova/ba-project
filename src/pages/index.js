@@ -9,9 +9,11 @@ import Dashboard from './Dashboard/Dashboard.js';
 import SignUp from './SignUp/SignUp.js';
 import Search from './Search/Search.js';
 import CreateProject from './Create/CreateProject.js';
+import Project from './Project/Project.js';
 
 export {
   CreateProject,
+  Project,
   Dashboard,
   Home,
   Search,

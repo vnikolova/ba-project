@@ -17,7 +17,14 @@ const colors = {
   cream: '#FDFDFC',
   grey: '#CAC9CC'
 };
-
+ const categoryColors = {
+   "Community": '#3CE8A3',
+   "Technology": '#5A99E9',
+   "Film & Photography": '#D32F2F',
+   "Science": '#512DA8',
+   "Music": '#388E3C',
+   "Sports": '#455A64'
+ };
 const fontFamilies = {
   main: 'Lato',
   text:  'Slabo27px'
@@ -26,9 +33,10 @@ const border = '1px solid lightgrey';
 const borderRadius = '50px';
 
 const fontSizes = {
-  0: '16px',
-  1: '18px',
-  2: '22px'
+  0: '12px',
+  1: '16px',
+  2: '18px',
+  3: '22px'
 }
 const padding = {
   0: '0px',
@@ -62,6 +70,7 @@ const categories = ['Science & Research', 'Technology', 'Music', 'Sports', 'Comm
 export default {
   jobs,
   categories,
+  categoryColors,
   colors,
   countries,
   border,

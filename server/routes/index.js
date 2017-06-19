@@ -10,7 +10,8 @@ router.get('/api', function(req, res, next){
     return res.status(401).send();
   }
 
-  return res.status(200).send(req.session.user);
+ res.status(200).send(req.session.user);
+ return;
 });
 
 router.post('/sendsms',function(req, res){

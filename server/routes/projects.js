@@ -16,25 +16,15 @@ let router = express.Router();
 // 	}).catch(next);
 // });
 
-router.get('/search/:category*?', function(req, res, next){
-	var data = req.params.category ? { category: req.params.category} : {};
+router.get('/search', function(req, res, next){
 
-	Project.find(data, function(err,projects){
+	Project.find({}, function(err,projects){
 		if(err) {
 			return res.status(500).send();
 		}
-		// var results = projects;
-		// for (project of results) {
-		// 	User.findOne({_id: project.user_id},function(err, data){
-		// 		project.user = data.name;
-		// 		console.log(project);
-		// 	});
-		// }
-
 		res.send(projects);
-		return res.status(200).send();
-	}).catch(next);
-	// });
+		return;
+	});
 });
 
 router.post('/create', function(req, res, next){
@@ -51,24 +41,31 @@ router.post('/create', function(req, res, next){
 			res.status(200).send();
 		})
     res.status(200).send();
-	}).catch(next); //moves on to next middleware if catches error
+		return;
+	});//moves on to next middleware if catches error
 
 });
 
-router.get('/projects/:id', function(res,req,next){
+//get project by user id
+router.get('/projects/:user_id', function(req,res,next){
+	Project.find({user_id: req.params.user_id}, function(err,projects){
+		if(err) {
+			return res.status(500).send();
+		}
+		res.send(projects);
+		// return res.status(200).send();
+	}).catch(next);;
+});
 
-	// State.find({}, function(err,projects){
-	// 	if(err) {
-	// 		return res.status(500).send();
-	// 	}
-	// 	res.send(projects);
-	// 	return res.status(200).send();
-
-		// projects.each(function (error, project){
-		// 	Project.findOne({_id: project._id}, function(err, data){
-		// 		results.push(data);
-		// 	});
-	});
-// });
+//get project by project id
+router.get('/project/:id', function(req,res,next){
+	Project.findOne({_id: req.params.id}, function(err,project){
+		if(err) {
+			return res.status(500).send();
+		}
+		res.send(project);
+		return;
+	}).catch(next);
+});
 
 module.exports = router;

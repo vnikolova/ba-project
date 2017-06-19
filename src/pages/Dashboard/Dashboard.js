@@ -7,6 +7,7 @@ import theme from '../../theme.js';
 import {Row, Col} from 'react-flexbox-grid';
 import Main from '../../layouts/Main.js';
 import axios from 'axios';
+import ProjectItem from './components/ProjectItem.js';
 
 class Dashboard extends Component {
 
@@ -33,7 +34,6 @@ class Dashboard extends Component {
 
 appendProjects() {
   axios.get('/projects/'+this.state.user._id, {}).then(function(obj){
-    console.log(obj.data);
    return obj.data;
     }).then(json => {
    this.setState({
@@ -41,6 +41,7 @@ appendProjects() {
    });
  });
 }
+
   render() {
     const style = {
       paper: {
@@ -53,6 +54,7 @@ appendProjects() {
       bordered: {
         padding: theme.padding[5],
         marginTop:'10px',
+        textAlign: 'center',
         marginBottom: '80px',
         borderBottom: '4px solid',
         borderColor: theme.colors.primaryBlue
@@ -63,8 +65,8 @@ appendProjects() {
 
     return (
       <Main>
-        <Row>
-          <Col xs={3} xsOffset={1} className="center">
+        <Row top="xs">
+          <Col xs={3} xsOffset={1}>
             <Paper style={style.bordered}>
                <Avatar src="img/user.png" size={150} />
                <div><span>{user.name}</span></div>
@@ -79,9 +81,6 @@ appendProjects() {
            <Col xs={6} xsOffset={1}>
              <Paper style={style.paper}>
                <h2><ProjectIcon color={theme.colors.grey} />Projects contributing to:</h2>
-               {this.state.projects.map((project) => (
-                 <h1>{project}</h1>
-               ))}
               <RaisedButton
                 href="/search"
                 label="Search projects"
@@ -91,11 +90,15 @@ appendProjects() {
 
              <Paper style={style.paper}>
                <h2><ProjectIcon color={theme.colors.grey} />organized by you:</h2>
-              <RaisedButton
-                href="/create"
-                label="create a project"
-                icon={<AddIcon color={theme.colors.grey} />}
-              />
+               {this.state.projects.map((project) => (
+                  <ProjectItem project={project}/>)
+             )}
+             <RaisedButton
+              style={{marginTop: '30px'}}
+               href="/create"
+               label="create a project"
+               icon={<AddIcon color={theme.colors.grey} />}
+             />
              </Paper>
           </Col>
 

@@ -5,9 +5,26 @@ import FlatButton from 'material-ui/FlatButton';
 import PropType from 'prop-types';
 import axios from 'axios';
 import theme from '../../../theme.js';
+import { Link } from 'react-router-dom';
 
 class GridItem extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      hover: false
+    }
+  }
+  onMouseOver = () => {
+    this.setState({
+      hover: true
+    });
+  }
 
+  onMouseOut = () => {
+    this.setState({
+      hover: false
+    });
+  }
   render() {
     const { data } = this.props;
 
@@ -19,19 +36,26 @@ class GridItem extends Component {
     data.category === 'Film' ? theme.colors.film :
     theme.colors.grey;
 
+    const itemLink ="/project/"+data._id;
     const styles = {
       chip: {
         margin: '4px'
       },
       card: {
         borderRight: '4px solid',
-        borderColor: borderColor
+        borderColor: borderColor,
+        backgroundColor: this.state.hover ? theme.colors.cream : ''
       }
     };
 
 
     return(
-      <Card style={styles.card}>
+    <Link to={itemLink} className="router-link">
+      <Card
+        onMouseEnter={this.onMouseOver.bind(this)}
+        onMouseLeave={this.onMouseOut.bind(this)}
+        style={styles.card}
+      >
         <CardHeader
           title='username'
           subtitle={data.updated}
@@ -53,6 +77,7 @@ class GridItem extends Component {
           <FlatButton label="Apply" />
         </CardActions>
       </Card>
+    </Link>
     )
   }
 }

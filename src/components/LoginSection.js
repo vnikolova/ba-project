@@ -30,7 +30,7 @@ class LoginSection extends Component {
   render() {
     const style = {
       wrapper: {
-        padding: theme.padding[5]
+        padding: theme.padding[3]
       }
     };
 
@@ -39,10 +39,9 @@ class LoginSection extends Component {
 
     return (
     <div style={style.wrapper}>
-      <Text>Sign in to start joining projects and supporting causes that matter most to you.</Text>
       {formSection}
       <Button text={switchText} onClick={() => this.setLoginActive()} />
-      <Text color={theme.colors.disabled} size="s">To use Raise you must have cookies enabled. If you sign up with Facebook,
+      <Text color={theme.colors.disabled} size="xs">To use Raise you must have cookies enabled. If you sign up with Facebook,
       we’ll start you off with a network by automatically importing any friends already on Facebook.
       Also, we’ll never post to Facebook without your permission.</Text>
     </div>

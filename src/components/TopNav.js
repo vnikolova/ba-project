@@ -75,7 +75,7 @@ onLogoutClick() {
     const styles = {
       wrapper: {
         backgroundColor: theme.colors.cream,
-        padding: theme.padding[2],
+        padding: theme.padding[1],
         borderBottom: theme.border
       },
       span: {
