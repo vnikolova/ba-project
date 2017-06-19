@@ -76,4 +76,11 @@ router.delete('delete/:id', function(req, res, next){
 	});
 });
 
+//get user by idfrom the db
+router.get('user/:id', function(req, res, next){
+	User.findOne({ _id: req.params.id }).then(function(user){
+		res.send(user);
+	});
+});
+
 module.exports = router;

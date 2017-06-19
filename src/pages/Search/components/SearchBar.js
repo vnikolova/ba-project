@@ -21,8 +21,9 @@ constructor(props){
         outline: '1px transparent'
       }
     }
+    const mergedStyle = Object.assign(style.wrapper, this.props.style, {});
     return(
-      <div style={style.wrapper}>
+      <div style={mergedStyle}>
         <input type="text" style={style.input} placeholder="Search for projects" />
       </div>
     )

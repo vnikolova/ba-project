@@ -3,6 +3,7 @@ import Main from '../../layouts/Main.js';
 import { GridItem, SearchBar } from './components';
 import { GridList, GridTile } from 'material-ui';
 import axios from 'axios';
+import { Col, Row } from 'react-flexbox-grid';
 
 class Search extends Component {
 
@@ -18,7 +19,6 @@ constructor(props){
     axios.get('/search',{}).then(function(obj){
       return obj.data;
     }).then(json => {
-      console.log(json);
       this.setState({
         projects: json
       });
@@ -27,23 +27,30 @@ constructor(props){
 
   render() {
     const { projects } = this.state;
+    const style = {
+      search: {
+        marginTop: '30px'
+      }
+    }
 
     return(
       <Main>
-        <SearchBar />
-        <GridList
-          cellHeight='auto'
-        >
-        {projects.map((project) => (
-            <GridTile
-              style={{padding: '16px', height: 'auto'}}
-              key={project.img}
-            >
-              <GridItem title={project.title} text={project.text} />
-            </GridTile>
-          ))}
-        </GridList>
-
+        <Col xs={10} xsOffset={1}>
+          <SearchBar style={style.search} />
+          <GridList
+            cellHeight='auto'
+          >
+          {projects.map((project) => (
+              <GridTile
+                style={{padding: '16px', height: 'auto'}}
+                key={project._id}
+              >
+                <GridItem data={project}/>
+              </GridTile>
+            )
+          )}
+          </GridList>
+        </Col>
       </Main>
     )
   }

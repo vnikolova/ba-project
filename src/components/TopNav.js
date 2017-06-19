@@ -13,6 +13,7 @@ import {Link} from 'react-router-dom';
 import {IconMenu, MenuItem, IconButton} from 'material-ui';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import ArrowDownIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
 class TopNav extends Component {
 
@@ -52,6 +53,14 @@ onLogoutClick() {
         <Link to="dashboard" className="router-link"><MenuItem primaryText="Dashboard" onClick={this.onDashboardMenuClick} /></Link>
         <Link to="settings" className="router-link"><MenuItem primaryText="Settings" onClick={this.onSettingsMenuClick} /></Link>
         <MenuItem primaryText="Log out" onTouchTap={this.props.onLogoutClick} />
+      </IconMenu>
+      <IconMenu
+        iconButtonElement={<IconButton style={style.userMenuIcons}><MenuIcon /></IconButton>}
+        anchorOrigin={{horizontal: 'middle', vertical: 'bottom'}}
+        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+      >
+        <Link to="search" className="router-link"><MenuItem primaryText="Search" /></Link>
+        <Link to="create" className="router-link"><MenuItem primaryText="Create new" /></Link>
       </IconMenu>
       </div>
     );

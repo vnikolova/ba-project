@@ -13,20 +13,34 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      projects: []
     };
   }
 
   componentWillMount() {
+
     axios.get('/api',this.state).then(function(obj){
       return obj.data;
     }).then(json => {
       this.setState({
         user: json
       });
+      this.appendProjects();
+
     });
   };
 
+appendProjects() {
+  axios.get('/projects/'+this.state.user._id, {}).then(function(obj){
+    console.log(obj.data);
+   return obj.data;
+    }).then(json => {
+   this.setState({
+     projects: json
+   });
+ });
+}
   render() {
     const style = {
       paper: {
@@ -53,8 +67,8 @@ class Dashboard extends Component {
           <Col xs={3} xsOffset={1} className="center">
             <Paper style={style.bordered}>
                <Avatar src="img/user.png" size={150} />
+               <div><span>{user.name}</span></div>
               <div><span>{user.email}</span></div>
-              <div><span>{user.name}</span></div>
               <br /><br />
               <RaisedButton
                 label="Edit profile"
@@ -65,6 +79,9 @@ class Dashboard extends Component {
            <Col xs={6} xsOffset={1}>
              <Paper style={style.paper}>
                <h2><ProjectIcon color={theme.colors.grey} />Projects contributing to:</h2>
+               {this.state.projects.map((project) => (
+                 <h1>{project}</h1>
+               ))}
               <RaisedButton
                 href="/search"
                 label="Search projects"

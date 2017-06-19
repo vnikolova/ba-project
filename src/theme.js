@@ -58,7 +58,7 @@ const padding = {
 
 const jobs = ['Accountant','Architect', 'Bartender','Budget Analyst','Consultant','Teacher', 'Web Designer' ,'Web Developer','Lawyer','researcher', 'Photographer', 'Scientist'];
 
-const categories = ['Science & Research', 'Teachnology', 'Music', 'Sports', 'Community', 'Film & Photography'];
+const categories = ['Science & Research', 'Technology', 'Music', 'Sports', 'Community', 'Film & Photography'];
 export default {
   jobs,
   categories,

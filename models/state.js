@@ -11,6 +11,6 @@ const stateSchema = new Schema({
     dateCreated: Date
 });
 
-const State = mongoose.model('project', projectSchema);
+const State = mongoose.model('state', stateSchema);
 
 module.exports = State;

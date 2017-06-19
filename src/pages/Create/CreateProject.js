@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Main from '../../layouts/Main.js';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { TextField, SelectField, MenuItem, DatePicker, RaisedButton } from 'material-ui';
 import { Row, Col } from 'react-flexbox-grid';
@@ -68,7 +69,11 @@ createProject() {
     axios.post('/create',this.state).then(function(obj){
       return obj.data;
     }).then(json => {
-      console.log(json);
+      if(json) {
+        this.setState({
+          finished: true
+        });
+      }
     });
   };
 
@@ -80,6 +85,12 @@ createProject() {
 
     return(
     <Main>
+    {this.state.finished ?
+      <div className="row">
+        <h1>Your project has been created.</h1>
+        <Link to="/dashboard">Continue to your dahboard</Link>
+       </div>
+    : <div>
       <Row><Col xs={4} xsOffset={2}><h1 className="middle">Create a new project</h1></Col></Row>
       <Row>
         <Col xs={4} xsOffset={2}>
@@ -179,6 +190,7 @@ createProject() {
             />
           </Col>
         </Row>
+        </div>}
 
       </Main>
     )
