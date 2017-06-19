@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import theme from '../../../theme.js';
+import SearchIcon from 'material-ui/svg-icons/action/search';
 
 class SearchBar extends Component {
 
@@ -11,7 +12,7 @@ constructor(props){
   }
 
   render() {
-    const style = {
+    const styles = {
       wrapper: {
         border: theme.border,
         borderRadius: theme.borderRadius,
@@ -21,10 +22,12 @@ constructor(props){
         outline: '1px transparent'
       }
     }
-    const mergedStyle = Object.assign(style.wrapper, this.props.style, {});
+    const {style, onChange,...props} = this.props;
+
+    const mergedStyle = Object.assign(styles.wrapper, style, {});
     return(
-      <div style={mergedStyle}>
-        <input type="text" style={style.input} placeholder="Search for projects" />
+      <div className="row" style={mergedStyle}>
+        <SearchIcon color={theme.colors.grey} /><input type="text" onChange={onChange} style={styles.input} placeholder="Search for projects" />
       </div>
     )
   }
