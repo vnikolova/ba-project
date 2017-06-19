@@ -13,10 +13,15 @@ constructor(props){
 
   this.state = {
     projects: [],
+    searchText: "",
     filteredProjects: [],
+    filterByCategory: "All",
+    filterMode: false,
     searchMode: false
     };
     this.onSearch = this.onSearch.bind(this);
+    this.onChangeCategory = this.onChangeCategory.bind(this);
+    this.filterProjects = this.filterProjects.bind(this);
   }
 
   componentWillMount(){
@@ -30,19 +35,46 @@ constructor(props){
   };
 
   onSearch = (e,v, o) =>{
-    var text = e.target.value.toLowerCase();
     this.setState({
-      searchMode: text.length > 0
+      searchText: e.target.value.toLowerCase(),
+      searchMode: e.target.value.length > 0
     });
-    var filteredProjects = this.state.projects.filter((e) => e.title.toLowerCase().indexOf(text) !== -1);
+
+    this.filterProjects(this.state.searchText);
+  }
+
+  onChangeCategory = (e, i,v) => {
+      this.setState({
+        filterByCategory: v
+      });
+    this.filterProjects(this.state.searchText, v);
+    };
+
+  filterProjects(text, category) {
+    let { searchMode, searchText, filterByCategory } = this.state;
+    let filteredProjects;
+
+    if(category) {
+      filteredProjects = this.state.projects.filter((e) => e.category == category);
+    } else if((searchMode === true) && (filterByCategory !== "All")) {
+      console.log("in two conditions");
+      filteredProjects = this.state.projects.filter((e) =>
+        (e.title.toLowerCase().indexOf(searchText) !== -1) && (e.category === filterByCategory)
+      );
+    }
+    else {
+      console.log("in else");
+      filteredProjects = this.state.projects.filter((e) => e.title.toLowerCase().indexOf(searchText) !== -1);
+      }
+
     this.setState({
       filteredProjects: filteredProjects
     });
   }
 
   render() {
-    const { projects, filteredProjects, searchMode } = this.state;
-    const projectsToMap = searchMode ? filteredProjects : projects;
+    const { projects, filterByCategory, filteredProjects, searchMode } = this.state;
+    let projectsToMap = (filterByCategory !== "All") || searchMode ? filteredProjects : projects;
 
     const style = {
       search: {
@@ -60,7 +92,8 @@ constructor(props){
           <Col xs={4}>
             <SelectField
               floatingLabelText="Filter by category"
-              onChange={this.handleCategoryChange}
+              onChange={this.onChangeCategory}
+              value={this.state.filterByCategory}
               >
               {theme.categories.map((cat, index) => (
                 <MenuItem
