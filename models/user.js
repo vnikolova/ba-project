@@ -20,7 +20,8 @@ const userSchema = new Schema({
     country: String,
     location : String,
     job: String,
-    interests: [String]
+    interests: [String],
+    phoneNumber: String
 });
 
 const User = mongoose.model('user', userSchema);

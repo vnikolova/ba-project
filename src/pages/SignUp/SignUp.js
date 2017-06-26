@@ -111,19 +111,18 @@ onChipAdd = () => {
   };
 
   handleNext = () => {
-    const {stepIndex,userId, dob, job, tags, location, country, phoneNumber} = this.state;
+    const {stepIndex,userId } = this.state;
 
     if(stepIndex === 1) {
       this.verifyPhoneNumber();
     } else if(stepIndex === 2) {
-      if(this.state.confirmCode === this.state.userCode){
         const data = {
-          "dob": dob ,
-          "location": location,
-          "country": country,
-          "phoneNumber": phoneNumber,
-          "job": job,
-          "interests": tags
+          dob: this.state.dob ,
+          location: this.state.location,
+          country: this.state.country,
+          phoneNumber: this.state.phoneNumber,
+          job: this.state.job,
+          interests: this.state.tags
         }
         //save data to db
         axios.put('/api/users/update/'+userId,data);
@@ -131,7 +130,6 @@ onChipAdd = () => {
           finished: true,
           verified: true
         }));
-      }
     }
     if (!this.state.loading) {
       this.dummyAsync(() => this.setState({

@@ -71,6 +71,7 @@ appendProjects() {
                <Avatar src="img/user.png" size={150} />
                <div><span>{user.name}</span></div>
               <div><span>{user.email}</span></div>
+              <div><span>{user.dob}</span></div>
               <br /><br />
               <RaisedButton
                 label="Edit profile"
